@@ -8,7 +8,7 @@ public class Camera {
 	public float pitch, yaw;
 	
 	public Camera() {
-		this.pos = new Vector3f(-5, -5, 1);
+		this.pos = new Vector3f();
 		this.focus = new Vector3f();
 		this.pitch = 0f;
 		this.yaw = 0f;
@@ -30,11 +30,10 @@ public class Camera {
 	}
 
 	public void setPitch(float f) {
-		pitch = f;
-		pitch = Math.max(-180, Math.min(pitch, 0)); //limit our pitch to look only up and down
+		this.pitch = f;
 	}
 	
 	public void setYaw(float f) {
-		yaw = f;
+		this.yaw = f;
 	}
 }

@@ -1,11 +1,21 @@
 package tang.main;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
+import org.lwjgl.input.*;
+
+import tang.model.BlockMap;
 
 import static org.lwjgl.opengl.GL11.*;
 
 
 public class View {
+	BlockMap map;
+	Camera camera;
+
+	public View(Camera camera) {
+		this.camera = camera;
+	}
+
 	public void init() {
 		int width = Display.getDisplayMode().getWidth();
 		int height = Display.getDisplayMode().getHeight();
@@ -24,32 +34,18 @@ public class View {
 		glDepthFunc(GL_LEQUAL);
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-		this.run();
 	}
 
+
 	public void run() {
-		while(!Display.isCloseRequested()) {
 
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glLoadIdentity();
-			GLU.gluLookAt(-5, -5, -5,
-					0, 0, 0.5f,
-					0.0f, 1.0f, 0.0f);
-
-			glBegin(GL_TRIANGLES);
-			glColor3f(1,1,0);
-			glVertex3f(1.0f, 1.0f, 1.0f);
-			glColor3f(0,1,1);
-			glVertex3f(2.0f, 0.0f, 0.0f);
-			glColor3f(1,0,1);
-			glVertex3f(0.0f, 0.0f, 6f);
-			glEnd();
-
-
-			Display.update();
-			Display.sync(60);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		if(this.camera != null){
+		GLU.gluLookAt(this.camera.pos.x, this.camera.pos.y, this.camera.pos.z,
+				this.camera.focus.x, this.camera.focus.y, this.camera.focus.z,
+				0.0f, 0.0f, 1.0f);
 		}
-		Display.destroy();
-		System.exit(0);
+
 	}
 }

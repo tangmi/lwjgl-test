@@ -20,11 +20,17 @@ public class BlockMap {
 	public BlockMap() {
 		blockList = new ArrayList<Block>();
 		
-		blockList.add(new Block(new Vector3f(0,0,1)));
+		blockList.add((new Block(new Vector3f(0,0,1.0f))).setColor(0.8f, 0.8f, 1.0f));
+		
 		blockList.add(new Block(new Vector3f(2,0,1)));
 		blockList.add(new Block(new Vector3f(0,2,1)));
 		blockList.add(new Block(new Vector3f(0,0,5)));
 		blockList.add(new Block(new Vector3f(50,0,5)));
+		
+
+		blockList.add((new Block(new Vector3f(10,10,1.0f))).setColor(1.0f, 0.8f, 0.8f));
+		blockList.add((new Block(new Vector3f(11.5f,10,1.0f))).setColor(0.8f, 1.0f, 0.8f));
+		blockList.add((new Block(new Vector3f(13.0f,10,1.0f))).setColor(0.8f, 0.8f, 1.0f));
 		
 		for(int i = 0; i < 40; i++) {
 			Block block = new Block(new Vector3f(-50, -50 + i*2, (float) (10 * Math.random()) + 5f));

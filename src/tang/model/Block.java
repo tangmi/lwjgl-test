@@ -32,10 +32,11 @@ public class Block {
 	}
 	
 	float r, g, b;
-	public void setColor(float r, float g, float b) {
+	public Block setColor(float r, float g, float b) {
 		this.r = r;
 		this.g = g;
 		this.b = b;
+		return this;
 	}
 	
 	public void draw() {
@@ -44,18 +45,22 @@ public class Block {
 
 		texture.bind();
 
+		glEnable(GL_CULL_FACE);
+//		glCullFace(GL_BACK);
 		glBegin(GL_QUADS);
 		
 		glColor3f(this.r,this.g,this.b);
-		glTexCoord2f(0,0);
-		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z -width/2);
-		glTexCoord2f(1,0);
-		glVertex3f(pos.x +width/2, pos.y -width/2, pos.z -width/2);
-		glTexCoord2f(1,1);
-		glVertex3f(pos.x +width/2, pos.y +width/2, pos.z -width/2);
+		//bottom
 		glTexCoord2f(0,1);
 		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z -width/2);
+		glTexCoord2f(1,1);
+		glVertex3f(pos.x +width/2, pos.y +width/2, pos.z -width/2);
+		glTexCoord2f(1,0);
+		glVertex3f(pos.x +width/2, pos.y -width/2, pos.z -width/2);
+		glTexCoord2f(0,0);
+		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z -width/2);
 		
+		//top
 		glTexCoord2f(0,0);
 		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z +width/2);
 		glTexCoord2f(1,0);
@@ -65,6 +70,7 @@ public class Block {
 		glTexCoord2f(0,1);
 		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z +width/2);
 		
+
 		glTexCoord2f(0,0);
 		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z -width/2);
 		glTexCoord2f(1,0);
@@ -74,24 +80,25 @@ public class Block {
 		glTexCoord2f(0,1);
 		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z +width/2);
 		
-		glTexCoord2f(0,0);
-		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z -width/2);
-		glTexCoord2f(1,0);
-		glVertex3f(pos.x +width/2, pos.y +width/2, pos.z -width/2);
+
+		glTexCoord2f(0,1);
+		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z +width/2);
 		glTexCoord2f(1,1);
 		glVertex3f(pos.x +width/2, pos.y +width/2, pos.z +width/2);
-		glTexCoord2f(0,1);
-		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z +width/2);
-		
-		glTexCoord2f(0,0);
-		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z -width/2);
 		glTexCoord2f(1,0);
+		glVertex3f(pos.x +width/2, pos.y +width/2, pos.z -width/2);
+		glTexCoord2f(0,0);
 		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z -width/2);
-		glTexCoord2f(1,1);
-		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z +width/2);
+
 		glTexCoord2f(0,1);
 		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z +width/2);
-		
+		glTexCoord2f(1,1);
+		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z +width/2);
+		glTexCoord2f(1,0);
+		glVertex3f(pos.x -width/2, pos.y +width/2, pos.z -width/2);
+		glTexCoord2f(0,0);
+		glVertex3f(pos.x -width/2, pos.y -width/2, pos.z -width/2);
+
 		glTexCoord2f(0,0);
 		glVertex3f(pos.x +width/2, pos.y -width/2, pos.z -width/2);
 		glTexCoord2f(1,0);
@@ -103,6 +110,9 @@ public class Block {
 
 		
 		GL11.glEnd();
+		
+		glDisable(GL_CULL_FACE);
+
 		
 		glDisable(GL_TEXTURE_2D);
 

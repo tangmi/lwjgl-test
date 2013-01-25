@@ -42,9 +42,9 @@ public class View {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		if(this.camera != null){
-		GLU.gluLookAt(this.camera.pos.x, this.camera.pos.y, this.camera.pos.z,
-				this.camera.focus.x, this.camera.focus.y, this.camera.focus.z,
-				0.0f, 0.0f, 1.0f);
+			GLU.gluLookAt(this.camera.pos.x, this.camera.pos.y, this.camera.pos.z,
+					this.camera.focus.x, this.camera.focus.y, this.camera.focus.z,
+					0.0f, 0.0f, 1.0f);
 		}
 
 	}

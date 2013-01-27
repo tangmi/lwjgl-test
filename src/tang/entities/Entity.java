@@ -36,6 +36,10 @@ public abstract class Entity {
 	public Heading getHeading() {
 		return this.heading;
 	}
+	
+	public void setHeading(Heading h) {
+		this.heading = h;
+	}
 
 	public abstract void init();
 

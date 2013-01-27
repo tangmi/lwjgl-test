@@ -36,10 +36,7 @@ public class EntityNpc extends Entity {
 		
 	}
 
-	public void draw() {
-		System.out.println(this.pos);
-		
-		
+	public void draw() {		
 		this.model.draw(this.pos, this.heading);
 	}
 }

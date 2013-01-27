@@ -1,16 +1,11 @@
 package tang.helper;
 
-import org.lwjgl.util.vector.Vector3f;
-
 /**
  * Helper class for handling pitch and yaw heading in degrees
  * 
  * @author michael
  */
 public class Heading {
-	public float pitch;
-	public float yaw;
-	protected Vector3f directionVector;
 	public static final int DIRECTION_UP = 0;
 	public static final int DIRECTION_DOWN = 1;
 	public static final int DIRECTION_LEFT = 2;
@@ -18,6 +13,14 @@ public class Heading {
 	public static final int DIRECTION_FORWARD = 4;
 	public static final int DIRECTION_BACKWARD = 5;
 	
+	/**
+	 * The pitch should be constrained by almost -90 and 90 degrees
+	 */
+	public float pitch;
+	/**
+	 * The yaw is constrained by -360 to 360
+	 */
+	public float yaw;
 	
 	/** 
 	 * Create a Heading object with all fields set to 0
@@ -25,7 +28,6 @@ public class Heading {
 	public Heading() {
 		this.pitch = 0.0f;
 		this.yaw = 0.0f;
-		this.directionVector = new Vector3f();
 	}
 	
 	/**
@@ -50,7 +52,8 @@ public class Heading {
 	 */
 	public void setPitch(float f) {
 		this.pitch = f;
-		this.pitch = Math.max( -179.9f, Math.min( this.pitch, -0.1f ) );
+		//we must constrain the pitch before it reaches +/- 90.0f, because the view will flip if it's truly +/- 90.0f
+		this.pitch = Math.max( -89.999f, Math.min( this.pitch, 89.999f ) );
 	}
 	/**
 	 * Adds to the value of the pitch
@@ -84,12 +87,12 @@ public class Heading {
 	}
 	
 	private Vector3 calculateUnitVector(float pitch, float yaw) {
-		float theta = (float) (-pitch * (Math.PI/180.0f));
-		float phi = (float) (-yaw * (Math.PI/180.0f));
+		float theta = (float) ((pitch - 90.0f) * (Math.PI/180.0f));
+		float phi = (float) (yaw * (Math.PI/180.0f));
 		return new Vector3(
 				(float) ( Math.sin(theta) * Math.cos(phi)  ),
-				(float) ( Math.sin(theta) * Math.sin(phi) ),
-				(float) ( Math.cos(theta) )
+				(float) ( Math.cos(theta) ),
+				(float) ( Math.sin(theta) * Math.sin(phi) )
 				);
 	}
 	
@@ -104,20 +107,24 @@ public class Heading {
 	public Vector3 getMovementVector(int d) {
 		Vector3 vector;
 		if(d == DIRECTION_UP) {
-			vector = this.calculateUnitVector(0.0f, 0.0f);
+			vector = this.calculateUnitVector(90.0f, 0.0f);
 		} else if(d == DIRECTION_DOWN) {
-			vector = this.calculateUnitVector(-180.0f, 0.0f);
+			vector = this.calculateUnitVector(-90.0f, 0.0f);
 		} else if(d == DIRECTION_LEFT) {
-			vector = this.calculateUnitVector(-90, this.yaw - 90.0f);
+			vector = this.calculateUnitVector(0.0f, this.yaw - 90.0f);
 		} else if(d == DIRECTION_RIGHT) {
-			vector = this.calculateUnitVector(-90, this.yaw + 90.0f);
+			vector = this.calculateUnitVector(0.0f, this.yaw + 90.0f);
 		} else if(d == DIRECTION_FORWARD) {
-			vector = this.calculateUnitVector(-90, this.yaw);
+			vector = this.calculateUnitVector(0.0f, this.yaw);
 		} else if(d == DIRECTION_BACKWARD) {
-			vector = this.calculateUnitVector(-90, this.yaw + 180.0f);
+			vector = this.calculateUnitVector(0.0f, this.yaw + 180.0f);
 		} else {
 			vector = new Vector3();
 		}
 		return vector;
+	}
+	
+	public String toString() {
+		return "Heading(" + this.pitch + ", " + this.yaw + ")";
 	}
 }

@@ -9,13 +9,13 @@ public class Model {
 
 	public List<Vector3> vertices;
 	public List<Vector3> normals;
-	public List<Vector2> texVerticies;
+	public List<Vector2> texVertices;
 	public List<Face> faces;
 	
 	public Model() {
 		this.vertices = new ArrayList<Vector3>();
 		this.normals = new ArrayList<Vector3>();
-		this.texVerticies = new ArrayList<Vector2>();
+		this.texVertices = new ArrayList<Vector2>();
 		this.faces = new ArrayList<Face>();
 	}
 	
@@ -29,8 +29,8 @@ public class Model {
 		glPushMatrix();
 		
 		glTranslatef(pos.x, pos.y, pos.z);
-		glRotatef(-heading.yaw,
-				0.0f, 0.0f, 1.0f);
+		glRotatef(-heading.yaw - 90.0f,
+				0.0f, 1.0f, 0.0f);
 		
 //		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		

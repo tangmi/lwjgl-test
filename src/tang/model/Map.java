@@ -1,10 +1,15 @@
 package tang.model;
 
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.glLight;
+
 import java.util.List;
 
 import tang.entities.Entity;
 import tang.helper.Model;
 import tang.main.Camera;
+import tang.main.Main;
 
 public class Map {
 	Model map;
@@ -27,6 +32,7 @@ public class Map {
 	
 	
 	public void draw() {
+		
 		for(Entity entity : entities) {
 			entity.update();
 		}

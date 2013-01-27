@@ -48,6 +48,9 @@ public class Main {
 		
 		while(!Display.isCloseRequested()) {
 			
+			glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{0, 5, 0, 1.0f}));
+
+			
 			map.draw();
 			
 			
@@ -87,13 +90,17 @@ public class Main {
 	private static void glInit() {
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
+		
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glLightModel(GL_LIGHT_MODEL_AMBIENT, asFloatBuffer(new float[]{0.05f, 0.05f, 0.05f, 1.0f}));
-		glLight(GL_LIGHT0, GL_DIFFUSE, asFloatBuffer(new float[]{0.5f, 0.5f, 0.5f, 1.0f}));
+		glLight(GL_LIGHT0, GL_DIFFUSE, asFloatBuffer(new float[]{1f, 1f, 1f, 1.0f}));
 
 		glEnable(GL_COLOR_MATERIAL);
-		glColorMaterial(GL_FRONT, GL_DIFFUSE);		
+		glColorMaterial(GL_FRONT, GL_DIFFUSE);
+		
+
+		
 	}
 
 	/**

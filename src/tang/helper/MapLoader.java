@@ -30,11 +30,12 @@ public class MapLoader {
 		
 		
 		Camera camera = new Camera();
-		EntityPlayer player = new EntityPlayer(new Vector3(-11, 0, 1));
+		EntityPlayer player = new EntityPlayer(new Vector3(-8, 1, 0));
+		player.setHeading(new Heading(0, 180));
 		camera.setTarget(player);
 		
 		mapEntities.add(player);
-		mapEntities.add(new EntityNpc(new Vector3(10, 10, 0)));
+		mapEntities.add(new EntityNpc(new Vector3(10, 0, 10)));
 		
 		m.setEntities(mapEntities);
 		m.setCamera(camera);

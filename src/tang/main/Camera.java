@@ -64,7 +64,7 @@ public class Camera {
 
 		GLU.gluLookAt(this.pos.getX(), this.pos.getY(), this.pos.getZ(),
 				this.focus.getX(), this.focus.getY(), this.focus.getZ(),
-				0.0f, 0.0f, 1.0f);
+				0.0f, 1.0f, 0.0f);
 	}
 	
 	public void setHeading(Heading h) {

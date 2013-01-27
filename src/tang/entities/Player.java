@@ -1,87 +1,82 @@
 package tang.entities;
 
+
+import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.glLight;
+
 import org.lwjgl.input.*;
-import org.lwjgl.util.vector.Vector3f;
 
-import tang.main.Camera;
+import tang.helper.Heading;
+import tang.helper.Vector3;
+import tang.main.Main;
 
-public class Player {
+public class Player extends Entity{
 	
-	Vector3f pos, vel;
-	Vector3f focus;
-	float yaw, pitch;
-	Camera camera;
 	float gravity;
 	
-	public Player(Camera camera) {
-		this.camera = camera;
+	public Player(Vector3 pos) {
+		super(pos);
+				
+		//this should move into input class
+		Mouse.setCursorPosition(5, 5); //force the mouse to become "grabbable" (inside window)
 		Mouse.setGrabbed(true);
+		this.heading = new Heading(-90.0f, 0.0f);
 		
-		this.pos = new Vector3f(5, 5, 1);
-		this.vel = new Vector3f();
+		this.gravity = -0.03f;
+		this.accel.setZ(this.gravity);
 		
-		this.gravity = 0.03f;
+		this.friction = 1.2f;
 		
-		this.pitch = -90.0f;
-	}
-	
-	private Vector3f calculateUnitVector(float pitch, float yaw) {
-		boolean invert = false;
-		float theta = (float) (-pitch *(Math.PI/180.0f));
-		float phi = (float) (-yaw *(Math.PI/180.0f));
-		return new Vector3f(
-				(float) ( Math.sin(theta) * Math.cos(phi)  ),
-				(float) ( Math.sin(theta) * Math.sin(phi) ),
-				(float) ( Math.cos(theta) * (invert ? -1.0f : 1.0f) )
-				);
 	}
 	
 	public void update() {
-		this.updatePosition();
+		super.update();
+		
+		glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{pos.x, pos.y, pos.z + 5, 1.0f}));
 
-		this.camera.pos = this.pos;
+		
+		this.updatePosition();
 		
 		//TODO: input should be abstracted out into an input class
-		this.yaw += Mouse.getDX() / 1.5f;
-		this.pitch += Mouse.getDY() / 1.5f;
-		this.pitch = Math.max(-179.9f, Math.min(pitch, -0.1f)); //limit our pitch to look only up and down
-
-		this.yaw = yaw % 360;
+		float mouseSensitivity = 1.5f;
+		this.heading.addPitch(Mouse.getDY() / mouseSensitivity);
+		this.heading.addYaw(Mouse.getDX() / mouseSensitivity);
+				
+		float moveSensitivity = 0.3f;
 		
-		camera.setYaw(yaw);
-		camera.setPitch(pitch);
-		
-		this.focus = calculateUnitVector(this.pitch, this.yaw);
-		
+		Vector3 moveVel;
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			this.move(MOVE_FORWARD);
+			moveVel = heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(moveSensitivity);
+			moveVel.setZ(vel.getZ());
+			this.vel = moveVel;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			this.move(MOVE_BACKWARD);
+			moveVel = heading.getMovementVector(Heading.DIRECTION_BACKWARD).scale(moveSensitivity);
+			moveVel.setZ(vel.getZ());
+			this.vel = moveVel;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			this.strafe(MOVE_LEFT);
+			moveVel = heading.getMovementVector(Heading.DIRECTION_LEFT).scale(moveSensitivity);
+			moveVel.setZ(vel.getZ());
+			this.vel = moveVel;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			this.strafe(MOVE_RIGHT);
+			moveVel = heading.getMovementVector(Heading.DIRECTION_RIGHT).scale(moveSensitivity);
+			moveVel.setZ(vel.getZ());
+			this.vel = moveVel;
 		}
+
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-//			this.moveVertical(MOVE_UP);
 			if(standing) {
 				this.vel.z += 0.6f;
 			}
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-//			this.moveVertical(MOVE_DOWN);
 		}
 		
 	}
 	
 	boolean standing = false;
 	private void updatePosition() {
-		this.vel.z -= this.gravity;
-		this.pos.z += this.vel.z;
-
 		if(this.pos.z > 1) {
 			standing = false;
 		} else {
@@ -90,21 +85,17 @@ public class Player {
 			this.standing = true;
 		}
 	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	
-	public final int MOVE_UP = 1;
-	public final int MOVE_DOWN = -1;
-	private void moveVertical(int direction) {
-		this.pos.z += 0.3f * direction;
-	}
-	public final int MOVE_FORWARD = 1;
-	public final int MOVE_BACKWARD = -1;
-	public void move(int direction) {
-		 Vector3f.add((Vector3f) calculateUnitVector(-90, yaw).scale(direction * 0.3f), this.pos, this.pos);
-	}
-	public final int MOVE_LEFT = -1;
-	public final int MOVE_RIGHT = 1;
-	public void strafe(int direction) {
-		Vector3f.add((Vector3f) calculateUnitVector(-90.0f, yaw + (90.0f * direction)).scale(0.3f), this.pos, this.pos);
-	}
 }

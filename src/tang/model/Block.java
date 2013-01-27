@@ -1,20 +1,27 @@
 package tang.model;
 
+
 import java.io.*;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
+import tang.helper.Vector3;
+
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Depreceated, use Map instead
+ * @author michael
+ *
+ */
 public class Block {
-	Vector3f pos;
+	Vector3 pos;
 	float width;
 	public Texture texture;
 	
-	public Block(Vector3f pos) {
+	public Block(Vector3 pos) {
 		this.pos = pos;
 		this.width = 1;
 		

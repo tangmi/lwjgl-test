@@ -1,39 +1,81 @@
 package tang.main;
 
-import org.lwjgl.util.vector.Vector3f;
+import static org.lwjgl.opengl.GL11.*;
 
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.glu.GLU;
+
+import tang.entities.Entity;
+import tang.helper.Heading;
+import tang.helper.Vector3;
+
+/**
+ * This camera assumes that +z is upwards
+ * @author michael
+ *
+ */
 public class Camera {
-	public Vector3f pos;
-	public Vector3f focus;
-	public float pitch, yaw;
+	public Vector3 pos;
+	public Heading heading;
+	public Vector3 focus;
+	public Entity target;
 	
 	public Camera() {
-		this.pos = new Vector3f();
-		this.focus = new Vector3f();
-		this.pitch = 0f;
-		this.yaw = 0f;
+		this.pos = new Vector3();
+		this.heading = new Heading();
+		this.focus = new Vector3();
+		
+		
+		int width = Display.getDisplayMode().getWidth();
+		int height = Display.getDisplayMode().getHeight();
+		
+		glViewport(0, 0, width, height);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		GLU.gluPerspective(50.0f, ((float) width / (float) height), 0.1f, 256.0f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		glShadeModel(GL_SMOOTH);
+		glClearColor(0.55f, 0.804f, 0.97f, 0.0f);
+		glClearDepth(1.0f);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	}
 	
-	public Vector3f lookAt() {
-		boolean invert = false;
-		float theta = (float) (-this.pitch * (Math.PI/180.0f));
-		float phi = (float) (-this.yaw * (Math.PI/180.0f));
-		return new Vector3f(
-				(float) ( Math.sin(theta) * Math.cos(phi)  ),
-				(float) ( Math.sin(theta) * Math.sin(phi) ),
-				(float) ( Math.cos(theta) * (invert ? -1.0f : 1.0f) )
-				);
+	/**
+	 * Sets the Entity to "view" from
+	 * @param e
+	 */
+	public void setTarget(Entity e) {
+		this.target = e;
 	}
 	
 	public void update() {
-		Vector3f.add(lookAt(), this.pos, this.focus);
-	}
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		
+		boolean invert = false;
+		this.pos = this.target.getPos();
+		this.heading = this.target.getHeading();
+		
+		this.focus = this.pos.add(heading.getDirectionVector());
 
+		GLU.gluLookAt(this.pos.getX(), this.pos.getY(), this.pos.getZ(),
+				this.focus.getX(), this.focus.getY(), this.focus.getZ(),
+				0.0f, 0.0f, 1.0f);
+	}
+	
+	public void setHeading(Heading h) {
+		this.heading = h;
+	}
+	
 	public void setPitch(float f) {
-		this.pitch = f;
+		heading.setPitch(f);
 	}
 	
 	public void setYaw(float f) {
-		this.yaw = f;
+		heading.setYaw(f);
 	}
 }

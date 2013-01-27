@@ -30,16 +30,20 @@ public class Map {
 		this.mapCollision.setModel(cm);
 	}
 	
-	
-	public void draw() {
-		
+	public void update() {
+
 		for(Entity entity : entities) {
 			entity.update();
 		}
-
+		
 		camera.update(); //TODO: this has to go after player.update, i should find a better solution
+
+	}
+	
+	public void draw() {
 		
 		map.draw();
+		
 		for(Entity entity : entities) {
 			entity.draw();
 		}

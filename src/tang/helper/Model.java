@@ -25,6 +25,8 @@ public class Model {
 
 	public void draw(Vector3 pos, Heading heading) {
 		
+		Axis.draw(pos, heading);
+		
 //		glCallList(displayList);
 		glPushMatrix();
 		

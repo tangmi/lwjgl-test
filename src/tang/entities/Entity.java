@@ -1,5 +1,6 @@
 package tang.entities;
 
+import tang.helper.Axis;
 import tang.helper.Heading;
 import tang.helper.Model;
 import tang.helper.Vector3;
@@ -103,5 +104,9 @@ public abstract class Entity {
 	}
 
 	public abstract void draw();
+	
+	public final void drawAxis() {
+		Axis.draw(this.pos, this.heading);
+	}
 
 }

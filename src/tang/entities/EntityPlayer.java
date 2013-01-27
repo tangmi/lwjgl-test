@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.glLight;
 
 import org.lwjgl.input.*;
 
+import tang.helper.Axis;
 import tang.helper.Console;
 import tang.helper.Heading;
 import tang.helper.Vector3;
@@ -34,8 +35,6 @@ public class EntityPlayer extends Entity{
 		super.update();
 
 		this.updatePosition();
-
-		Console.debug(heading);
 		
 		//TODO: input should be abstracted out into an input class
 		float mouseSensitivity = 1.5f;
@@ -93,8 +92,7 @@ public class EntityPlayer extends Entity{
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
-
+		Axis.draw(new Vector3(5, 1, 5), this.heading);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.lwjgl.input.Keyboard;
+
 import tang.helper.Heading;
 import tang.helper.OBJLoader;
 import tang.helper.Vector3;
@@ -31,8 +33,13 @@ public class EntityNpc extends Entity {
 	public void update() {
 		super.update();
 		
-		this.heading.addYaw(1.0f);
-		this.pos = this.pos.add(heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(0.1f));
+//		this.heading.addYaw(1.0f);
+//		this.pos = this.pos.add(heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(0.1f));
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) heading.pitch++;
+		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) heading.pitch--;
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) heading.yaw++;
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) heading.yaw--;
 		
 	}
 

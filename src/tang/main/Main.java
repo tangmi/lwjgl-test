@@ -17,6 +17,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import tang.entities.Entity;
 import tang.entities.EntityPlayer;
+import tang.helper.Axis;
 import tang.helper.MapLoader;
 import tang.model.BlockMap;
 import tang.model.Map;
@@ -47,13 +48,14 @@ public class Main {
 
 		
 		while(!Display.isCloseRequested()) {
-			
+
 			glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{0, 5, 0, 1.0f}));
 
-			
+			map.update();
 			map.draw();
 			
-			
+			Axis.draw();
+
 			texture.bind();
 			glBegin(GL_TRIANGLES);
 				glColor3f(1,1,0);
@@ -66,7 +68,7 @@ public class Main {
 				glTexCoord2f(0.5f,1);
 				glVertex3f(0.0f, 0.0f, 6f);
 			glEnd();			
-			
+
 			Display.update();
 			Display.sync(60);
 			

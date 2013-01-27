@@ -92,7 +92,6 @@ public class EntityPlayer extends Entity{
 
 	@Override
 	public void draw() {
-		Axis.draw(new Vector3(5, 1, 5), this.heading);
 	}
 
 }

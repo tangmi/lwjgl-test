@@ -54,7 +54,6 @@ public class Main {
 			map.update();
 			map.draw();
 			
-			Axis.draw();
 
 			texture.bind();
 			glBegin(GL_TRIANGLES);
@@ -69,6 +68,9 @@ public class Main {
 				glVertex3f(0.0f, 0.0f, 6f);
 			glEnd();			
 
+			Axis.draw();
+
+			
 			Display.update();
 			Display.sync(60);
 			

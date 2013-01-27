@@ -16,7 +16,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
 import tang.entities.Entity;
-import tang.entities.Player;
+import tang.entities.EntityPlayer;
 import tang.helper.MapLoader;
 import tang.model.BlockMap;
 import tang.model.Map;

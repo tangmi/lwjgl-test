@@ -34,6 +34,10 @@ public class Map {
 		camera.update(); //TODO: this has to go after player.update, i should find a better solution
 		
 		map.draw();
+		for(Entity entity : entities) {
+			entity.draw();
+		}
+
 	}
 
 	public void setEntities(List<Entity> entities) {

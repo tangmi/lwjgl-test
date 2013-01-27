@@ -1,6 +1,7 @@
 package tang.entities;
 
 import tang.helper.Heading;
+import tang.helper.Model;
 import tang.helper.Vector3;
 
 public abstract class Entity {
@@ -9,6 +10,7 @@ public abstract class Entity {
 	public Vector3 size;
 	public float friction;
 	public Heading heading;
+	public Model model;
 
 	public Entity(Vector3 pos) {
 		this.pos = pos;
@@ -21,6 +23,8 @@ public abstract class Entity {
 		this.velprev = this.vel;
 		
 		this.size = new Vector3();
+		
+		this.model = null;
 
 		this.init();
 	}

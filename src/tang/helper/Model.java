@@ -18,15 +18,19 @@ public class Model {
 		this.texVerticies = new ArrayList<Vector2>();
 		this.faces = new ArrayList<Face>();
 	}
-
+	
 	public void draw() {
+		this.draw(new Vector3(), new Heading());
+	}
+
+	public void draw(Vector3 pos, Heading heading) {
 		
 //		glCallList(displayList);
-//		glPushMatrix();
-//		
-//		glTranslate();
-//		
-//		glPopMatrix();
+		glPushMatrix();
+		
+		glTranslatef(pos.x, pos.y, pos.z);
+		glRotatef(-heading.yaw,
+				0.0f, 0.0f, 1.0f);
 		
 //		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
@@ -54,6 +58,9 @@ public class Model {
 		}
 		glEnd();
 		
+		
 		glDisable(GL_CULL_FACE);
+		
+		glPopMatrix();
 	}
 }

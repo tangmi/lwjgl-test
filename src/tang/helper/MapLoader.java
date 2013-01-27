@@ -9,7 +9,8 @@ import java.util.List;
 import org.lwjgl.opengl.Display;
 
 import tang.entities.Entity;
-import tang.entities.Player;
+import tang.entities.EntityNpc;
+import tang.entities.EntityPlayer;
 import tang.main.Camera;
 import tang.model.Map;
 
@@ -19,7 +20,7 @@ public class MapLoader {
 		
 		//TODO: figure out a file format for containing maps
 		
-		List<Entity> readEntities = new ArrayList<Entity>();
+		List<Entity> mapEntities = new ArrayList<Entity>();
 		
 //		readEntities.add(new Player());
 		
@@ -29,12 +30,13 @@ public class MapLoader {
 		
 		
 		Camera camera = new Camera();
-		Player player = new Player(new Vector3(-11, 0, 1));
+		EntityPlayer player = new EntityPlayer(new Vector3(-11, 0, 1));
 		camera.setTarget(player);
 		
-		readEntities.add(player);
+		mapEntities.add(player);
+		mapEntities.add(new EntityNpc(new Vector3(10, 10, 0)));
 		
-		m.setEntities(readEntities);
+		m.setEntities(mapEntities);
 		m.setCamera(camera);
 		
 		Model mapModel = null;

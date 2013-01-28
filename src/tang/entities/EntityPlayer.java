@@ -75,11 +75,11 @@ public class EntityPlayer extends Entity{
 
 	boolean standing = false;
 	private void updatePosition() {
-		if(this.pos.y > 1) {
+		if(this.pos.y > 0) {
 			standing = false;
 		} else {
 			this.vel.y = 0;
-			this.pos.y = 1;
+			this.pos.y = 0;
 			this.standing = true;
 		}
 	}

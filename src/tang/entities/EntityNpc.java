@@ -22,7 +22,7 @@ public class EntityNpc extends Entity {
 	@Override
 	public void init() {
 		try {
-			this.model = OBJLoader.loadModel(new File("assets/objects/person.obj"));
+			this.model = OBJLoader.loadModel(new File("assets/objects/dogthing.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

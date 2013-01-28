@@ -36,7 +36,7 @@ public class Model {
 		
 //		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
-		glColor3f(0.5f, 1.0f, 0.5f);
+		glColor3f(1.0f, 1.0f, 1.0f);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		

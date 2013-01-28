@@ -42,7 +42,7 @@ public class MapLoader {
 		
 		Model mapModel = null;
 		try {
-			mapModel = OBJLoader.loadModel(new File("assets/levels/test.obj"));
+			mapModel = OBJLoader.loadModel(new File("assets/levels/collisiontest.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			Display.destroy();

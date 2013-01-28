@@ -62,8 +62,8 @@ public class Camera {
 		
 		this.focus = this.pos.add(heading.getDirectionVector());
 
-		GLU.gluLookAt(this.pos.getX(), this.pos.getY(), this.pos.getZ(),
-				this.focus.getX(), this.focus.getY(), this.focus.getZ(),
+		GLU.gluLookAt(this.pos.getX(), this.pos.getY() + 1.61f, this.pos.getZ(),
+				this.focus.getX(), this.focus.getY()  + 1.61f, this.focus.getZ(),
 				0.0f, 1.0f, 0.0f);
 	}
 	

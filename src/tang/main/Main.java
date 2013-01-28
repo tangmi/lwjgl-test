@@ -49,7 +49,7 @@ public class Main {
 		
 		while(!Display.isCloseRequested()) {
 
-			glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{0, 5, 0, 1.0f}));
+			glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{0, 15, 0, 1.0f}));
 
 			map.update();
 			map.draw();

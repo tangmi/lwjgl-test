@@ -46,6 +46,16 @@ public class OBJLoader {
 				float y = Float.valueOf(line.split(" ")[2]);
 				float z = Float.valueOf(line.split(" ")[3]);
 				m.normals.add(new Vector3(x,y,z));
+			} else if(line.startsWith("vt ")) {
+				float u = Float.valueOf(line.split(" ")[1]);
+				float v = 1.0f - Float.valueOf(line.split(" ")[2]);	//texture y coordinates need to be flipped
+				m.texVertices.add(new TextureCoordinates(u, v));
+//			} else if(line.startsWith("g ")) {
+//				if(line.length()>2) {
+//					String name = line.split(" ")[1];
+//					currentTexture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/" + name + ".png"));
+//					System.out.println(currentTexture.getTextureID());
+//				}
 			} else if(line.startsWith("f ")) {
 				String[] data = line.split(" ");
 
@@ -68,7 +78,7 @@ public class OBJLoader {
 								);
 						if(data.length - 1 == 4) {
 							textureIndicies.setD(Integer.valueOf(data[4].split("/")[1]));
-						}	
+						}
 					} catch(NumberFormatException e) {
 						//just ignore if there's no texture coordinates to parse
 					}
@@ -82,25 +92,11 @@ public class OBJLoader {
 						normalIndicies.setD(Integer.valueOf(data[4].split("/")[2]));
 					}
 
-					Face face = new Face(vertexIndicies, normalIndicies, textureIndicies);
-					face.setMaterial(currentMaterial);
-					m.faces.add(face);
+					m.faces.add(new Face(vertexIndicies, normalIndicies, textureIndicies, currentMaterial));
 					
-//					m.faces.add(new Face(vertexIndicies,textureIndicies,normalIndicies,currentTexture.getTextureID()));
 				} catch(Exception e) {
 					Console.error(f.getName() + ": could not parse: \"" + line + "\"");
 				}
-			} else if(line.startsWith("vt ")) {
-				float u = Float.valueOf(line.split(" ")[1]);
-				float v = Float.valueOf(line.split(" ")[2]);
-				m.texVertices.add(new TextureCoordinates(u, v));
-				
-//			} else if(line.startsWith("g ")) {
-//				if(line.length()>2) {
-//					String name = line.split(" ")[1];
-//					currentTexture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/" + name + ".png"));
-//					System.out.println(currentTexture.getTextureID());
-//				}
 			}
 		}
 		reader.close();
@@ -115,7 +111,6 @@ public class OBJLoader {
 	private static Material findMaterialByName(String materialName, List<Material> materials) {
 		for(Material material : materials) {
 			if(material.getName().equals(materialName)) {
-				Console.debug(materialName + " found");
 				return material;
 			}
 		}

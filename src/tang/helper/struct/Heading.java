@@ -14,7 +14,7 @@ public class Heading {
 	public static final int DIRECTION_BACKWARD = 5;
 	
 	/**
-	 * The pitch should be constrained by almost -90 and 90 degrees
+	 * The pitch should be constrained by almost 0 to 180 degrees
 	 */
 	public float pitch;
 	/**
@@ -26,7 +26,7 @@ public class Heading {
 	 * Create a Heading object with all fields set to 0
 	 */
 	public Heading() {
-		this.pitch = 0.0f;
+		this.pitch = 90.0f;
 		this.yaw = 0.0f;
 	}
 	
@@ -47,13 +47,13 @@ public class Heading {
 		return this.pitch;
 	}
 	/**
-	 * Sets the value of the pitch and limits it so we can only look down to up
+	 * Sets the value of the pitch and limits it so we can only look up to down
 	 * @param f pitch
 	 */
 	public void setPitch(float f) {
 		this.pitch = f;
-		//we must constrain the pitch before it reaches +/- 90.0f, because the view will flip if it's truly +/- 90.0f
-		this.pitch = Math.max( -89.999f, Math.min( this.pitch, 89.999f ) );
+		//we must constrain the pitch before it reaches the limits, because the view will flip if it's truly at the limit
+		this.pitch = Math.max( 0.001f, Math.min( this.pitch, 179.999f ) );
 	}
 	/**
 	 * Adds to the value of the pitch
@@ -87,7 +87,7 @@ public class Heading {
 	}
 	
 	private Vector3 calculateUnitVector(float pitch, float yaw) {
-		float theta = (float) ((pitch - 90.0f) * (Math.PI/180.0f));
+		float theta = (float) ((pitch) * (Math.PI/180.0f));
 		float phi = (float) (yaw * (Math.PI/180.0f));
 		return new Vector3(
 				(float) ( Math.sin(theta) * Math.cos(phi)  ),
@@ -107,17 +107,17 @@ public class Heading {
 	public Vector3 getMovementVector(int d) {
 		Vector3 vector;
 		if(d == DIRECTION_UP) {
-			vector = this.calculateUnitVector(90.0f, 0.0f);
+			vector = this.calculateUnitVector(0.0f, 0.0f);
 		} else if(d == DIRECTION_DOWN) {
-			vector = this.calculateUnitVector(-90.0f, 0.0f);
+			vector = this.calculateUnitVector(180.0f, 0.0f);
 		} else if(d == DIRECTION_LEFT) {
-			vector = this.calculateUnitVector(0.0f, this.yaw - 90.0f);
+			vector = this.calculateUnitVector(90.0f, this.yaw - 90.0f);
 		} else if(d == DIRECTION_RIGHT) {
-			vector = this.calculateUnitVector(0.0f, this.yaw + 90.0f);
+			vector = this.calculateUnitVector(90.0f, this.yaw + 90.0f);
 		} else if(d == DIRECTION_FORWARD) {
-			vector = this.calculateUnitVector(0.0f, this.yaw);
+			vector = this.calculateUnitVector(90.0f, this.yaw);
 		} else if(d == DIRECTION_BACKWARD) {
-			vector = this.calculateUnitVector(0.0f, this.yaw + 180.0f);
+			vector = this.calculateUnitVector(90.0f, this.yaw + 180.0f);
 		} else {
 			vector = new Vector3();
 		}

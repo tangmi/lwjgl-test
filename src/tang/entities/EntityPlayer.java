@@ -45,7 +45,7 @@ public class EntityPlayer extends Entity{
 		
 		//TODO: input should be abstracted out into an input class
 		float mouseSensitivity = 1.5f;
-		this.heading.addPitch(Mouse.getDY() / mouseSensitivity);
+		this.heading.addPitch(-1 * Mouse.getDY() / mouseSensitivity);
 		this.heading.addYaw(Mouse.getDX() / mouseSensitivity);
 
 		float moveSensitivity = 0.3f;

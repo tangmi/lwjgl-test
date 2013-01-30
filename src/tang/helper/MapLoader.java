@@ -35,7 +35,7 @@ public class MapLoader {
 		
 		Camera camera = new Camera();
 		EntityPlayer player = new EntityPlayer(new Vector3(-8, 1, 0));
-		player.setHeading(new Heading(0, 180));
+		player.setHeading(new Heading(90.0f, 0.0f));
 		camera.setTarget(player);
 		
 		mapEntities.add(player);

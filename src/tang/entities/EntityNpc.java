@@ -16,7 +16,7 @@ public class EntityNpc extends Entity {
 	
 	public EntityNpc(Vector3 pos) {
 		super(pos);
-		
+		this.getHeading().setPitch(90.0f);
 		
 	}
 

@@ -131,7 +131,6 @@ public class OBJLoader {
 		while((line=reader.readLine()) != null) {
 			if(line.startsWith("newmtl ")) {
 				Material material = new Material(line.split(" ")[1]);
-				Console.debug(line);
 				while((line=reader.readLine()) != null && !line.equals("")) {
 					//TODO: support all textures in Material
 					if(line.startsWith("Ka ")) {
@@ -162,8 +161,6 @@ public class OBJLoader {
 						material.setDiffuseMap(diffuseMap);
 						Console.debug(textureName + " => assigned ID " + texture.getTextureID());
 					}
-					Console.debug(line);
-
 				}
 				materials.add(material);
 			} 

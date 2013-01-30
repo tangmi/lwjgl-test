@@ -52,6 +52,7 @@ public class Main {
 
 			glLight(GL_LIGHT0, GL_POSITION, Main.asFloatBuffer(new float[]{0, 15, 0, 1.0f}));
 
+			
 			map.update();
 			map.draw();
 			
@@ -103,7 +104,6 @@ public class Main {
 
 		glEnable(GL_COLOR_MATERIAL);
 		glColorMaterial(GL_FRONT, GL_DIFFUSE);
-		
 
 		
 	}

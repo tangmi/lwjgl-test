@@ -3,6 +3,8 @@ lwjgl-test
 
 an illegitimate almost MVC game written in openGL.
 
+![hicole](http://i.imgur.com/0RMfM0N.png)
+
 ![screenshot](http://i.imgur.com/JGarOES.png)
 
 ![screenshot2](http://i.imgur.com/UkNWkFv.png)

@@ -1,8 +1,11 @@
 package tang.entities;
 
 
+import static org.lwjgl.opengl.GL11.GL_DIFFUSE;
 import static org.lwjgl.opengl.GL11.GL_LIGHT0;
+import static org.lwjgl.opengl.GL11.GL_LIGHT1;
 import static org.lwjgl.opengl.GL11.GL_POSITION;
+import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glLight;
 
 import org.lwjgl.input.*;
@@ -33,6 +36,10 @@ public class EntityPlayer extends Entity{
 
 	public void update() {
 		super.update();
+		
+		glEnable(GL_LIGHT1);
+		glLight(GL_LIGHT1, GL_DIFFUSE, Main.asFloatBuffer(new float[]{1f, 1f, 1f, 1.0f}));
+		glLight(GL_LIGHT1, GL_POSITION, Main.asFloatBuffer(new float[]{this.pos.x, this.pos.y + 1, this.pos.z, 1.0f}));
 
 		this.updatePosition();
 		

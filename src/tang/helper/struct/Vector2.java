@@ -1,4 +1,4 @@
-package tang.helper;
+package tang.helper.struct;
 
 public class Vector2 extends Vector3 {
 	//this shouldn't be so stupid

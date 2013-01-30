@@ -13,9 +13,9 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import tang.helper.Model;
-import tang.helper.OBJLoader;
-import tang.helper.Vector3;
+import tang.helper.obj.Model;
+import tang.helper.obj.OBJLoader;
+import tang.helper.struct.Vector3;
 
 /**
  * Depreceated, use Map instead

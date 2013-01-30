@@ -1,4 +1,4 @@
-package tang.helper;
+package tang.helper.struct;
 
 import org.lwjgl.util.vector.Vector3f;
 

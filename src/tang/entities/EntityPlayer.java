@@ -9,8 +9,8 @@ import org.lwjgl.input.*;
 
 import tang.helper.Axis;
 import tang.helper.Console;
-import tang.helper.Heading;
-import tang.helper.Vector3;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 import tang.main.Main;
 
 public class EntityPlayer extends Entity{
@@ -86,7 +86,6 @@ public class EntityPlayer extends Entity{
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 
 	}
 

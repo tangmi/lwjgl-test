@@ -6,9 +6,10 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
-import tang.helper.Heading;
-import tang.helper.OBJLoader;
-import tang.helper.Vector3;
+import tang.helper.Console;
+import tang.helper.obj.OBJLoader;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 
 public class EntityNpc extends Entity {
 	
@@ -23,6 +24,7 @@ public class EntityNpc extends Entity {
 	public void init() {
 		try {
 			this.model = OBJLoader.loadModel(new File("assets/objects/dogthing.obj"));
+//			this.model = OBJLoader.loadModel(new File("assets/objects/person.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

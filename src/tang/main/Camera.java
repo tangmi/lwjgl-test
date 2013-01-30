@@ -6,8 +6,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
 
 import tang.entities.Entity;
-import tang.helper.Heading;
-import tang.helper.Vector3;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 
 /**
  * This camera assumes that +z is upwards

@@ -1,7 +1,7 @@
 package tang.model;
 
-import tang.helper.Model;
-import tang.helper.Vector3;
+import tang.helper.obj.Model;
+import tang.helper.struct.Vector3;
 
 public class MapCollision {
 	

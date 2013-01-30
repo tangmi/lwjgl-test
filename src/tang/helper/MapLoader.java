@@ -11,6 +11,10 @@ import org.lwjgl.opengl.Display;
 import tang.entities.Entity;
 import tang.entities.EntityNpc;
 import tang.entities.EntityPlayer;
+import tang.helper.obj.Model;
+import tang.helper.obj.OBJLoader;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 import tang.main.Camera;
 import tang.model.Map;
 

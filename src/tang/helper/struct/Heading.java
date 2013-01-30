@@ -1,4 +1,4 @@
-package tang.helper;
+package tang.helper.struct;
 
 /**
  * Helper class for handling pitch and yaw heading in degrees

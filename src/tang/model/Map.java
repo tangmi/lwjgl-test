@@ -7,7 +7,7 @@ import static org.lwjgl.opengl.GL11.glLight;
 import java.util.List;
 
 import tang.entities.Entity;
-import tang.helper.Model;
+import tang.helper.obj.Model;
 import tang.main.Camera;
 import tang.main.Main;
 

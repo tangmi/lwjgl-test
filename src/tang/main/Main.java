@@ -24,8 +24,8 @@ import tang.model.Map;
 import static org.lwjgl.opengl.GL11.*;
  
 public class Main {
-	private static final int DISPLAY_WIDTH = 640;
-	private static final int DISPLAY_HEIGHT = 480;
+	private static final int DISPLAY_WIDTH = 800;
+	private static final int DISPLAY_HEIGHT = 600;
 	private static final String DISPLAY_TITLE = "tangmi/lwjgl-test";
 	
 	public static void main(String[] args) {
@@ -37,6 +37,7 @@ public class Main {
 		
 		Map map = MapLoader.loadMap(null);
 		
+		//this is just for testing
 		Texture texture = null;
 		try {
 			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("assets/dev/tex512.png")));

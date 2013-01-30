@@ -1,9 +1,9 @@
 package tang.entities;
 
 import tang.helper.Axis;
-import tang.helper.Heading;
-import tang.helper.Model;
-import tang.helper.Vector3;
+import tang.helper.obj.Model;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 
 public abstract class Entity {
 	public Vector3 pos, vel, accel;

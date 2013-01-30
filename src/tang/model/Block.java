@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import tang.helper.Vector3;
+import tang.helper.struct.Vector3;
 
 import static org.lwjgl.opengl.GL11.*;
 

@@ -1,6 +1,8 @@
 package tang.helper;
 
 import static org.lwjgl.opengl.GL11.*;
+import tang.helper.struct.Heading;
+import tang.helper.struct.Vector3;
 
 /**
  * Helper class to orient oneself in a 3d world

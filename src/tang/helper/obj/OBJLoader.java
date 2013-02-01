@@ -27,36 +27,40 @@ public class OBJLoader {
 		
 		Model m = new Model();
 		String line;
-		Texture currentTexture = null;
 		List<Material> materials = null;
 		
 		Material currentMaterial = null;
 		while((line=reader.readLine()) != null) {
 			if(line.startsWith("mtllib ")) {
+				//loads up all the materials used in the file. this should theoretically appear first
 				materials = loadMaterialsFromMtl(new File(f.getParent() + "/" + line.split(" ")[1]));
+				
 			} else if(line.startsWith("usemtl ")) {
+				//set the currently used material for all future faces, until another is defined
 				currentMaterial = findMaterialByName(line.split(" ")[1], materials);
+				
 			} else if(line.startsWith("v ")) {
+				//defines a vertex point
 				float x = Float.valueOf(line.split(" ")[1]);
 				float y = Float.valueOf(line.split(" ")[2]);
 				float z = Float.valueOf(line.split(" ")[3]);
 				m.vertices.add(new Vector3(x,y,z));
+				
 			} else if(line.startsWith("vn ")) {
+				//defines a normal of a face
 				float x = Float.valueOf(line.split(" ")[1]);
 				float y = Float.valueOf(line.split(" ")[2]);
 				float z = Float.valueOf(line.split(" ")[3]);
 				m.normals.add(new Vector3(x,y,z));
+				
 			} else if(line.startsWith("vt ")) {
+				//defines a uv texture location
 				float u = Float.valueOf(line.split(" ")[1]);
 				float v = 1.0f - Float.valueOf(line.split(" ")[2]);	//texture y coordinates need to be flipped
 				m.texVertices.add(new TextureCoordinates(u, v));
-//			} else if(line.startsWith("g ")) {
-//				if(line.length()>2) {
-//					String name = line.split(" ")[1];
-//					currentTexture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/" + name + ".png"));
-//					System.out.println(currentTexture.getTextureID());
-//				}
+				
 			} else if(line.startsWith("f ")) {
+				//defines a face on the object (triangle or quad, with a material)
 				String[] data = line.split(" ");
 
 				try {
@@ -96,6 +100,7 @@ public class OBJLoader {
 					
 				} catch(Exception e) {
 					Console.error(f.getName() + ": could not parse: \"" + line + "\"");
+					e.printStackTrace();
 				}
 			}
 		}
@@ -126,36 +131,52 @@ public class OBJLoader {
 		while((line=reader.readLine()) != null) {
 			if(line.startsWith("newmtl ")) {
 				Material material = new Material(line.split(" ")[1]);
+				
+				//this assumes that materials are separated by an empty line
 				while((line=reader.readLine()) != null && !line.equals("")) {
-					//TODO: support all textures in Material
 					if(line.startsWith("Ka ")) {
+						//ambient color
 						float r = Float.valueOf(line.split(" ")[1]);
 						float g = Float.valueOf(line.split(" ")[2]);
 						float b = Float.valueOf(line.split(" ")[3]);
 						material.setAmbientColor(new Color(r, g, b));
+						
 					} else if(line.startsWith("Kd ")) {
+						//diffuse color
 						float r = Float.valueOf(line.split(" ")[1]);
 						float g = Float.valueOf(line.split(" ")[2]);
 						float b = Float.valueOf(line.split(" ")[3]);
 						material.setDiffuseColor(new Color(r, g, b));
+						
 					} else if(line.startsWith("Ks ")) {
+						//specular color
 						float r = Float.valueOf(line.split(" ")[1]);
 						float g = Float.valueOf(line.split(" ")[2]);
 						float b = Float.valueOf(line.split(" ")[3]);
 						material.setSpecularColor(new Color(r, g, b));
+						
 					} else if(line.startsWith("Ns ")) {
+						//specular coefficient
 						material.setSpecularCoefficient(Float.valueOf(line.split(" ")[1]));
+						
 					} else if(line.startsWith("d ") || line.startsWith("Tr ")) {
+						//dissolve, or transparency
 						material.setDissolve(Float.valueOf(line.split(" ")[1]));
+						
 					} else if(line.startsWith("illum ")) {
+						//illumination model
 						material.setIlluminationModel(Integer.valueOf(line.split(" ")[1]));
+						
 					} else if(line.startsWith("map_Kd ")) {
+						//diffuse map
 						String textureName = line.split(" ")[1];
 						Texture texture = TextureLoader.getTexture("PNG", new FileInputStream(new File(f.getParent() + "/" + textureName)));
 						TextureMap diffuseMap = new TextureMap(texture.getTextureID());
 						material.setDiffuseMap(diffuseMap);
 						Console.debug(textureName + " => assigned ID " + texture.getTextureID());
 					}
+					//TODO: support all texture maps in Material
+
 				}
 				materials.add(material);
 			} 

@@ -94,6 +94,7 @@ public class Main {
 	}
 
 	private static void glInit() {
+				
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
 		

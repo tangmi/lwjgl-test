@@ -105,6 +105,21 @@ public abstract class Entity {
 
 	public abstract void draw();
 	
+	public void handleMovementTrace() {
+		//resolve collisions based on position and velocity of both things
+	}
+	
+	//TODO collision mehtods
+	public boolean touches(Entity other) {
+		return false;
+		//AABB vs AABB collision
+//		boolean collides = 
+//				(this.pos.x + (this.size.x / 2) < other.pos.getX() - (other.size.getX() / 2)) ||
+//				(this.pos.x + (this.size.x / 2) < other.pos.getX() - (other.size.getX() / 2)) ||
+//				(this.pos.x + (this.size.x / 2) < other.pos.getX() - (other.size.getX() / 2));
+//		return collides;
+	}
+	
 	public final void drawAxis() {
 		Axis.draw(this.pos, this.heading);
 	}

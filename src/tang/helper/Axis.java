@@ -45,13 +45,13 @@ public class Axis {
 	}
 	
 	public static void draw(Vector3 pos, Heading h) {
-
+		//TODO this is broken?
 		
 		glPushMatrix();
 			glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 			glRotatef(-h.getYaw() + 90.0f,
 					0.0f, 1.0f, 0.0f);
-			glRotatef(-h.getPitch(),
+			glRotatef(-h.getPitch() + 90.0f,
 					1.0f, 0.0f, 0.0f);
 	
 			draw();

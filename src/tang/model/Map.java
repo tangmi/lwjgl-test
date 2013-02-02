@@ -8,18 +8,30 @@ import java.util.List;
 
 import tang.entities.Entity;
 import tang.helper.obj.Model;
+import tang.helper.obj.Updatable;
 import tang.main.Camera;
-import tang.main.Main;
+import tang.testgame.Main;
 
-public class Map {
-	Model map;
-	MapCollision mapCollision;
-	List<Entity> entities;
-	Camera camera;
+public class Map implements Updatable {
+	private Model map;
+	private MapCollision mapCollision;
+	private List<Entity> entities;
+	private Camera camera;
+	private String name;
 	
 	public Map() {
 		map = null;
 		mapCollision = new MapCollision();
+	}
+	
+	public void init() {
+		
+		//TODO loadEntities() into map
+		
+		for(Entity entity : entities) {
+			entity.init();
+		}
+		
 	}
 	
 	public void setModel(Model m) {
@@ -28,6 +40,10 @@ public class Map {
 	
 	public void setCollisionModel(Model cm) {
 		this.mapCollision.setModel(cm);
+	}
+	
+	public MapCollision getCollisionMap() {
+		return this.mapCollision;
 	}
 	
 	public void update() {
@@ -50,11 +66,24 @@ public class Map {
 
 	}
 
-	public void setEntities(List<Entity> entities) {
+	public void setEntityList(List<Entity> entities) {
 		this.entities = entities;
+	}
+
+	public List<Entity> getEntityList() {
+		return this.entities;
 	}
 	
 	public void setCamera(Camera camera) {
 		this.camera = camera;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

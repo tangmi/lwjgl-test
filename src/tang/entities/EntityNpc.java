@@ -18,6 +18,8 @@ public class EntityNpc extends Entity {
 		super(pos);
 		this.getHeading().setPitch(90.0f);
 		
+		this.size = new Vector3(1, 2.5f, 1);
+		
 	}
 
 	@Override
@@ -48,5 +50,7 @@ public class EntityNpc extends Entity {
 
 	public void draw() {		
 		this.model.draw(this.pos, this.heading);
+		this.drawBoundingBox();
+		this.drawAxis();
 	}
 }

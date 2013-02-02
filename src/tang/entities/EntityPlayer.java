@@ -9,9 +9,9 @@ import tang.helper.Axis;
 import tang.helper.Console;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
-import tang.main.Main;
+import tang.testgame.Main;
 
-public class EntityPlayer extends Entity{
+public class EntityPlayer extends Entity {
 
 	float gravity;
 
@@ -26,6 +26,8 @@ public class EntityPlayer extends Entity{
 		this.accel.setY(this.gravity);
 
 		this.friction = 1.2f;
+		
+		this.size = new Vector3(1,2,1);
 
 	}
 
@@ -36,7 +38,7 @@ public class EntityPlayer extends Entity{
 //		glLight(GL_LIGHT1, GL_DIFFUSE, Main.asFloatBuffer(new float[]{1f, 1f, 1f, 1.0f}));
 //		glLight(GL_LIGHT1, GL_POSITION, Main.asFloatBuffer(new float[]{this.pos.x, this.pos.y + 1, this.pos.z, 1.0f}));
 
-		this.updatePosition();
+//		this.updatePosition();
 		
 		//TODO: input should be abstracted out into an input class
 		float mouseSensitivity = 1.5f;
@@ -68,22 +70,22 @@ public class EntityPlayer extends Entity{
 		}
 
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			if(standing) {
+			if(this.standing) {
 				this.vel.y += 0.6f;
 			}
 		}
 
 	}
 
-	boolean standing = false;
+//	boolean standing = false;
 	private void updatePosition() {
-		if(this.pos.y > 0) {
-			standing = false;
-		} else {
-			this.vel.y = 0;
-			this.pos.y = 0;
-			this.standing = true;
-		}
+//		if(this.pos.y > 0) {
+//			standing = false;
+//		} else {
+//			this.vel.y = 0;
+//			this.pos.y = 0;
+//			this.standing = true;
+//		}
 	}
 
 	@Override
@@ -93,6 +95,8 @@ public class EntityPlayer extends Entity{
 
 	@Override
 	public void draw() {
+		this.drawBoundingBox();
+//		this.drawAxis();
 	}
 
 }

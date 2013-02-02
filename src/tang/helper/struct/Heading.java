@@ -21,6 +21,10 @@ public class Heading {
 	 * The yaw is constrained by -360 to 360
 	 */
 	public float yaw;
+	/**
+	 * not implemented yet, yo
+	 */
+	public float roll;
 	
 	/** 
 	 * Create a Heading object with all fields set to 0

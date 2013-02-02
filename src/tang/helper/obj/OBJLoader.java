@@ -99,8 +99,8 @@ public class OBJLoader {
 					m.faces.add(new Face(vertexIndicies, normalIndicies, textureIndicies, currentMaterial));
 					
 				} catch(Exception e) {
-					Console.error(f.getName() + ": could not parse: \"" + line + "\"");
-					e.printStackTrace();
+					Console.error(f.getName() + ": could not parse line, \"" + line + "\"");
+//					e.printStackTrace();
 				}
 			}
 		}

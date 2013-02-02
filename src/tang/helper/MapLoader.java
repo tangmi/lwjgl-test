@@ -31,17 +31,19 @@ public class MapLoader {
 		
 		//this map is hardcoded for now
 		m = new Map();
+		m.setName("testmap");
 		
 		
 		Camera camera = new Camera();
-		EntityPlayer player = new EntityPlayer(new Vector3(-8, 1, 0));
+		EntityPlayer player = new EntityPlayer(new Vector3(-8, 10, 0));
 		player.setHeading(new Heading(90.0f, 0.0f));
 		camera.setTarget(player);
 		
 		mapEntities.add(player);
-		mapEntities.add(new EntityNpc(new Vector3(10, 0, 10)));
+//		mapEntities.add(new EntityNpc(new Vector3(10, 0, 10)));
+		Console.debug("Enemy added");
 		
-		m.setEntities(mapEntities);
+		m.setEntityList(mapEntities);
 		m.setCamera(camera);
 		
 		Model mapModel = null;
@@ -61,6 +63,8 @@ public class MapLoader {
 		
 		m.setModel(mapModel);
 		m.setCollisionModel(mapModel);
+		
+		Console.info("Map \"" + m.getName() + "\" loaded");
 		
 		return m;
 	}

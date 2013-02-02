@@ -13,23 +13,18 @@ import tang.helper.Console;
  */
 public class GameContainer {
 	
-	public static final GameContainer INSTANCE = new GameContainer();
-	
 	private Game game;
-	
-	public GameContainer() {}
 	
 	public GameContainer(Game game) {
 		this.game = game;
-		
+
 		try {
 			Display.setDisplayMode(new DisplayMode(game.getDisplayWidth(), game.getDisplayHeight()));
 			Display.setTitle(game.getDisplayTitle());
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
-			Display.destroy();
-			System.exit(1);
+			Game.exit();
 		}
 		
 		game.init();
@@ -43,11 +38,6 @@ public class GameContainer {
 		}
 		
 		//quit the game if outside the loop
-		this.exit();
-	}
-	
-	public static void exit() {
-		Display.destroy();
-		System.exit(0);
+		Game.exit();
 	}
 }

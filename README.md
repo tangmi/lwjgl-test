@@ -7,7 +7,7 @@ this framework will likely include:
 
 * a graphics display engine containing default shaders (theoretically abstracting all OpenGL out of the client code)
 * module-based framework where various core and extra functionality can be dynamically loaded and unloaded
-* an wavefront .obj loader and renderer
+* a wavefront .obj loader and renderer
 * built-in level editor (entity placement/level logic, etc)
 * demos showcase use cases in various gameplay styles (fps, 3rd person, spaceship, etc)
 * maybe a super simple voxel-styled engine module for people to quickly make a game without spending too much time creating assets (this would be directed at programmer types, primarily at hackathons)

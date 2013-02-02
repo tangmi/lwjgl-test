@@ -23,6 +23,7 @@ import tang.helper.struct.Vector3;
 public class OBJLoader {
 	
 	public static Model loadModel(File f) throws FileNotFoundException, IOException {
+		
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		
 		Model m = new Model();

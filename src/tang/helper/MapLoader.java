@@ -40,8 +40,11 @@ public class MapLoader {
 		camera.setTarget(player);
 		
 		mapEntities.add(player);
-		mapEntities.add(new EntityNpc(new Vector3(10, 0, 10)));
-		Console.debug("Enemy added");
+		Console.debug("Player added: " + player);
+
+		EntityNpc enemy = new EntityNpc(new Vector3(10, 0, 10));
+		mapEntities.add(enemy);
+		Console.debug("Enemy added: " + enemy);
 		
 		m.setEntityList(mapEntities);
 		m.setCamera(camera);

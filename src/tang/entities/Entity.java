@@ -4,8 +4,8 @@ import java.util.List;
 
 import tang.helper.Axis;
 import tang.helper.Console;
+import tang.helper.Updatable;
 import tang.helper.obj.Model;
-import tang.helper.obj.Updatable;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 import tang.main.Game;
@@ -15,6 +15,8 @@ import tang.model.MapCollision;
 import static org.lwjgl.opengl.GL11.*;
 
 public abstract class Entity implements Updatable {
+	private static int nextId;
+	private int id;
 	public Vector3 pos, vel, accel;
 	public Vector3 posprev, velprev;
 	public Vector3 size;
@@ -23,8 +25,11 @@ public abstract class Entity implements Updatable {
 	public Model model;
 	
 	public boolean standing; //for games with gravity; could be factored out
+	public String name;
 
 	public Entity(Vector3 pos) {
+		this.id = nextId++; //sequentially assign ids
+		
 		this.pos = pos;
 		this.vel = new Vector3();
 		this.accel = new Vector3();
@@ -60,26 +65,17 @@ public abstract class Entity implements Updatable {
 	}
 
 	private void calculatePosition() {
-		
-		this.vel = this.vel.add(this.accel.scale(0.5f));
-//		this.pos = this.pos.add(this.vel);
-		this.handleMovementTrace();
-		
-		this.vel = this.vel.add(this.accel.scale(0.5f));
-		
-		calculateFriction();
-		
 		this.posprev = pos;
 		this.velprev = vel;
 		
-		//testing collisions with entities
-		for(Entity entity : Game.getLoadedMap().getEntityList()) {
-			if(!entity.getClass().isAssignableFrom(this.getClass())) {
-				if(this.touches(entity)) {
-					Console.debug(entity.getClass().toString());
-				}
-			}
-		}
+		this.vel = this.vel.add(this.accel);
+
+//		this.pos = this.pos.add(this.vel);
+		CollisionResult res = Game.getLoadedMap().getCollisionMap().trace(this.pos, this.vel, this.size);
+		this.handleMovementTrace(res);
+		
+		this.calculateFriction();
+		
 	}
 
 	private void calculateFriction() {
@@ -124,14 +120,11 @@ public abstract class Entity implements Updatable {
 
 	public abstract void draw();
 	
-	public void handleMovementTrace() {
+	public void handleMovementTrace(CollisionResult res) {
 		//resolve collisions based on position and velocity of both things
 		
-		CollisionResult res = Game.getLoadedMap().getCollisionMap().trace(this.pos, this.vel, this.size);
 		this.pos = res.getResolution();
-//		System.out.println( res.toString());
-		this.standing = res.getCollisionY();
-//		Console.debug(this.standing);
+		
 		if(res.getCollisionX()) {
 			this.vel.x = 0.0f;
 		}
@@ -142,25 +135,52 @@ public abstract class Entity implements Updatable {
 			this.vel.z = 0.0f;
 		}
 		
+		//TODO add anything that needs to be done in 3d
+		this.standing = res.getCollisionY();
 		
+	}
+
+	public void resolveCollision(Entity other) {
+//		if(this.overlapY(posprev, other) && this.overlapZ(posprev, other)) {
+//			Console.debug("X COLLISION");
+//		} else if(this.overlapX(posprev, other) && this.overlapZ(posprev, other)) {
+//			Console.debug("Y COLLISION");
+//		} else if(this.overlapX(posprev, other) && this.overlapY(posprev, other)) {
+//			Console.debug(this + "Z COLLISION");
+//		}
 	}
 	
 	public boolean touches(Entity other) {
-		return touches(this, other);
+		return this.touchesAt(this.pos, other);
 	}
 	
-	private boolean touches(Entity a, Entity b) {
-		boolean notColliding = 
-				(a.pos.x + (a.size.x / 2) < b.pos.getX() - (b.size.getX() / 2)) ||
-				(a.pos.y + a.size.y < b.pos.getY()) ||
-				(a.pos.z + (a.size.z / 2) < b.pos.getZ() - (b.size.getZ() / 2)) ||
-				
-				(a.pos.x - (a.size.x / 2) > b.pos.getX() + (b.size.getX() / 2)) ||
-				(a.pos.y > b.pos.getY() + b.size.getY()) ||
-				(a.pos.z - (a.size.z / 2) > b.pos.getZ() + (b.size.getZ() / 2))
-				;
+	private boolean touchesAt(Vector3 pos, Entity b) {
+		boolean notColliding = !this.overlapX(pos, b) || !this.overlapY(pos, b) || !this.overlapZ(pos, b);
 		return !notColliding;
 	}
+	
+	private boolean overlapX(Vector3 pos, Entity other) {
+		boolean notOverlapping =
+				(pos.x + (size.x / 2) < other.pos.getX() - (other.size.getX() / 2)) ||
+				(pos.x - (size.x / 2) > other.pos.getX() + (other.size.getX() / 2));	
+		return !notOverlapping;
+	}
+	
+	private boolean overlapY(Vector3 pos, Entity other) {
+		boolean notOverlapping =
+				(pos.y 			> other.pos.getY() + other.size.getY()) ||
+				(pos.y + size.y < other.pos.getY());
+		return !notOverlapping;
+	}
+	
+	private boolean overlapZ(Vector3 pos, Entity other) {
+		boolean notOverlapping =
+				(pos.z + (size.z / 2) < other.pos.getZ() - (other.size.getZ() / 2)) ||
+				(pos.z - (size.z / 2) > other.pos.getZ() + (other.size.getZ() / 2));
+		return !notOverlapping;
+	}
+	
+	
 	
 	public final void drawAxis() {
 		Axis.draw(this.pos, this.heading);
@@ -205,6 +225,14 @@ public abstract class Entity implements Updatable {
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		
+	}
+
+	public String toString() {
+		return "Entity(id: " + this.getId() + ", name: " + this.name + ")";
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

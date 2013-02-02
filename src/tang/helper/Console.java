@@ -22,7 +22,7 @@ public class Console {
 				levelString = "WARN";
 				break;
 			case ERROR:
-				levelString = "DEBUG";
+				levelString = "ERROR";
 				break;
 			case DEBUG:
 				levelString = "DEBUG";

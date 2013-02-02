@@ -6,6 +6,11 @@ import org.lwjgl.opengl.DisplayMode;
 
 import tang.helper.Console;
 
+/**
+ * GameContainer holds all the LWJGL code for displaying a window and updating the game loop
+ * @author michael
+ *
+ */
 public class GameContainer {
 	
 	public static final GameContainer INSTANCE = new GameContainer();

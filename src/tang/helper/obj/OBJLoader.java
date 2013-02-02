@@ -26,6 +26,7 @@ public class OBJLoader {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		
 		Model m = new Model();
+		m.name = f.getParent() + "/" + f.getName(); //this could be very kludgey
 		String line;
 		List<Material> materials = null;
 		
@@ -99,7 +100,7 @@ public class OBJLoader {
 					m.faces.add(new Face(vertexIndicies, normalIndicies, textureIndicies, currentMaterial));
 					
 				} catch(Exception e) {
-					Console.error(f.getName() + ": could not parse line, \"" + line + "\"");
+					Console.warn(m.name + ": could not parse line, \"" + line + "\"");
 //					e.printStackTrace();
 				}
 			}
@@ -107,7 +108,7 @@ public class OBJLoader {
 		reader.close();
 		materials = null;
 
-		Console.info(f.getName() + " loaded, " + m.vertices.size() + " vertices, " + m.normals.size() + " normals, " + m.faces.size() + " faces, " + m.texVertices.size() + " texture coordinates");
+		Console.info(m.name + " loaded, " + m.vertices.size() + " vertices, " + m.normals.size() + " normals, " + m.faces.size() + " faces, " + m.texVertices.size() + " texture coordinates");
 
 		return m;
 	}

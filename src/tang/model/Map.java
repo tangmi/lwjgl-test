@@ -7,8 +7,8 @@ import static org.lwjgl.opengl.GL11.glLight;
 import java.util.List;
 
 import tang.entities.Entity;
+import tang.helper.Updatable;
 import tang.helper.obj.Model;
-import tang.helper.obj.Updatable;
 import tang.main.Camera;
 import tang.testgame.Main;
 
@@ -50,12 +50,20 @@ public class Map implements Updatable {
 
 		for(Entity entity : entities) {
 			entity.update();
+			this.checkEntityCollision(entity);
 		}
 		
 		camera.update(); //TODO: this has to go after player.update, i should find a better solution
 
 	}
 	
+	private void checkEntityCollision(Entity entity) {
+		for(Entity other : entities) {
+			entity.resolveCollision(other);
+			//mark collision as checked already?
+		}
+	}
+
 	public void draw() {
 		
 		map.draw();

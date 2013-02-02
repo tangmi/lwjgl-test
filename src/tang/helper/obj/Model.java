@@ -28,12 +28,13 @@ import org.newdawn.slick.Color;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 
-public class Model {
+public class Model implements Comparable {
 
 	public List<Vector3> vertices;
 	public List<Vector3> normals;
 	public List<TextureCoordinates> texVertices;
 	public List<Face> faces;
+	public String name;
 	
 	public Model() {
 		this.vertices = new ArrayList<Vector3>();
@@ -160,5 +161,22 @@ public class Model {
 		glDisable(GL_CULL_FACE);
 		
 		glPopMatrix();
+	}
+	
+	/**
+	 * Compare two models based on name (filename)
+	 */
+	@Override
+	public int compareTo(Object obj) {
+		if(obj.getClass().isAssignableFrom(this.getClass())) {
+			if(this.name.equals(((Model) obj).name)) {
+				return 0;
+			} else {
+				return 1;
+			}
+		} else {
+			return -1;
+		}
+		
 	}
 }

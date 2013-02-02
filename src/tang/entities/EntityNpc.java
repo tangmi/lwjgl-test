@@ -35,6 +35,9 @@ public class EntityNpc extends Entity {
 		}
 	}
 	
+	@Override
+	public void resolveCollision(Entity e) {}
+	
 	public void update() {
 		super.update();
 		

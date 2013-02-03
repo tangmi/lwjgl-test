@@ -4,11 +4,11 @@ import tang.helper.Console;
 import tang.helper.obj.Model;
 import tang.helper.struct.Vector3;
 
-public class MapCollision {
+public class CollisionMap {
 	
 	Model collisionMap;
 	
-	public MapCollision() {
+	public CollisionMap() {
 		collisionMap = null;
 	}
 	

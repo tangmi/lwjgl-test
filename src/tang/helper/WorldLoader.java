@@ -16,22 +16,22 @@ import tang.helper.obj.OBJLoader;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 import tang.main.Camera;
-import tang.model.Map;
+import tang.model.World;
 
-public class MapLoader {
-	public static Map loadMap(File f) {
-		Map m = null;
+public class WorldLoader {
+	public static World loadWorld(File f) {
+		World m = null;
 		
 		//TODO: figure out a file format for containing maps
 		
-		List<Entity> mapEntities = new ArrayList<Entity>();
+		List<Entity> worldEntities = new ArrayList<Entity>();
 		
 //		readEntities.add(new Player());
 		
 		
 		//this map is hardcoded for now
-		m = new Map();
-		m.setName("testmap");
+		m = new World();
+		m.setName("testworld");
 		
 		
 		Camera camera = new Camera();
@@ -39,19 +39,19 @@ public class MapLoader {
 		player.setHeading(new Heading(90.0f, 0.0f));
 		camera.setTarget(player);
 		
-		mapEntities.add(player);
+		worldEntities.add(player);
 		Console.debug("Player added: " + player);
 
 		EntityNpc enemy = new EntityNpc(new Vector3(10, 0, 10));
-		mapEntities.add(enemy);
+		worldEntities.add(enemy);
 		Console.debug("Enemy added: " + enemy);
 		
-		m.setEntityList(mapEntities);
+		m.setEntityList(worldEntities);
 		m.setCamera(camera);
 		
-		Model mapModel = null;
+		Model worldModel = null;
 		try {
-			mapModel = OBJLoader.loadModel(new File("assets/levels/collisiontest.obj"));
+			worldModel = OBJLoader.loadModel(new File("assets/levels/collisiontest.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			Display.destroy();
@@ -64,10 +64,10 @@ public class MapLoader {
 		
 		
 		
-		m.setModel(mapModel);
-		m.setCollisionModel(mapModel);
+		m.setModel(worldModel);
+		m.setCollisionModel(worldModel);
 		
-		Console.info("Map \"" + m.getName() + "\" loaded");
+		Console.info("World \"" + m.getName() + "\" loaded");
 		
 		return m;
 	}

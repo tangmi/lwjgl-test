@@ -20,12 +20,12 @@ import tang.entities.Entity;
 import tang.entities.EntityPlayer;
 import tang.helper.Axis;
 import tang.helper.FloatUtils;
-import tang.helper.MapLoader;
+import tang.helper.WorldLoader;
 import tang.helper.input.Input;
 import tang.main.Game;
 import tang.main.GameContainer;
 import tang.model.BlockMap;
-import tang.model.Map;
+import tang.model.World;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main extends Game {
@@ -51,7 +51,7 @@ public class Main extends Game {
 
 		//		BlockMap map = new BlockMap();
 
-		Game.setLoadedMap(new File("lolThisDoesntMatterYet"));
+		Game.setLoadedWorld(new File("lolThisDoesntMatterYet"));
 		
 		Input.bind(Keyboard.KEY_A, "strafeLeft");
 		Input.bind(Keyboard.KEY_D, "strafeRight");
@@ -75,7 +75,7 @@ public class Main extends Game {
 	@Override
 	public void update() {
 
-		Game.getLoadedMap().update();
+		Game.getLoadedWorld().update();
 
 	}
 
@@ -83,7 +83,7 @@ public class Main extends Game {
 	public void draw() {
 		glLight(GL_LIGHT0, GL_POSITION, FloatUtils.asFloatBuffer(new float[]{0, 15, 0, 1.0f}));
 
-		Game.getLoadedMap().draw();
+		Game.getLoadedWorld().draw();
 
 		texture.bind();
 		glBegin(GL_TRIANGLES);

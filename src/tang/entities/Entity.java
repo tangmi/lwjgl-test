@@ -10,7 +10,7 @@ import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 import tang.main.Game;
 import tang.model.CollisionResult;
-import tang.model.MapCollision;
+import tang.model.CollisionMap;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -71,7 +71,7 @@ public abstract class Entity implements Updatable {
 		this.vel = this.vel.add(this.accel);
 
 //		this.pos = this.pos.add(this.vel);
-		CollisionResult res = Game.getLoadedMap().getCollisionMap().trace(this.pos, this.vel, this.size);
+		CollisionResult res = Game.getLoadedWorld().getCollisionMap().trace(this.pos, this.vel, this.size);
 		this.handleMovementTrace(res);
 		
 		this.calculateFriction();

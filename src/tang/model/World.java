@@ -12,16 +12,21 @@ import tang.helper.obj.Model;
 import tang.main.Camera;
 import tang.testgame.Main;
 
-public class Map implements Updatable {
+/**
+ * Contains information about the currently loaded world in the game
+ * @author michael
+ *
+ */
+public class World implements Updatable {
 	private Model map;
-	private MapCollision mapCollision;
+	private CollisionMap mapCollision;
 	private List<Entity> entities;
 	private Camera camera;
 	private String name;
 	
-	public Map() {
+	public World() {
 		map = null;
-		mapCollision = new MapCollision();
+		mapCollision = new CollisionMap();
 	}
 	
 	public void init() {
@@ -42,7 +47,7 @@ public class Map implements Updatable {
 		this.mapCollision.setModel(cm);
 	}
 	
-	public MapCollision getCollisionMap() {
+	public CollisionMap getCollisionMap() {
 		return this.mapCollision;
 	}
 	

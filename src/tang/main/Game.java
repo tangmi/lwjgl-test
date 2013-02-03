@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.lwjgl.opengl.Display;
 
+import tang.helper.Console;
 import tang.helper.MapLoader;
 import tang.helper.Updatable;
 import tang.model.Map;
@@ -23,11 +24,11 @@ public abstract class Game implements Updatable {
 	 * Retrieves the currently loaded map
 	 * @return loadedMap
 	 */
-	public static Map getLoadedMap() {
+	public static final Map getLoadedMap() {
 		return Game.loadedMap;
 	}
 	
-	public static void setLoadedMap(File f) {
+	public static final void setLoadedMap(File f) {
 		Game.loadedMap = MapLoader.loadMap(f);
 		Game.loadedMap.init();
 	}
@@ -35,7 +36,8 @@ public abstract class Game implements Updatable {
 	/**
 	 * Closes the OpenGL window and exits the game
 	 */
-	public static void exit() {
+	public static final void exit() {
+		Console.info("Quitting game");
 		Display.destroy();
 		System.exit(0);
 	}

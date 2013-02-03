@@ -8,6 +8,7 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.BufferUtils;
@@ -20,6 +21,7 @@ import tang.entities.EntityPlayer;
 import tang.helper.Axis;
 import tang.helper.FloatUtils;
 import tang.helper.MapLoader;
+import tang.helper.input.Input;
 import tang.main.Game;
 import tang.main.GameContainer;
 import tang.model.BlockMap;
@@ -49,7 +51,15 @@ public class Main extends Game {
 
 		//		BlockMap map = new BlockMap();
 
-		Game.setLoadedMap(new File("lol"));
+		Game.setLoadedMap(new File("lolThisDoesntMatterYet"));
+		
+		Input.bind(Keyboard.KEY_A, "strafeLeft");
+		Input.bind(Keyboard.KEY_D, "strafeRight");
+		Input.bind(Keyboard.KEY_W, "moveForward");
+		Input.bind(Keyboard.KEY_S, "moveBackward");
+		Input.bind(Keyboard.KEY_SPACE, "jump");
+
+		
 
 		//this is just for testing
 		texture = null;
@@ -59,7 +69,7 @@ public class Main extends Game {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	@Override

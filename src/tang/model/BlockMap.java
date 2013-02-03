@@ -18,16 +18,19 @@ import tang.helper.obj.OBJLoader;
 import tang.helper.struct.Vector3;
 
 /**
- * Depreceated, use Map instead
+ * Deprecated, use Map instead
  * @author michael
  *
  */
+@Deprecated
 public class BlockMap {
 	
 	List<Block> blockList;
 	Model map;
 	
 	Texture texture;
+	
+	@Deprecated
 	public BlockMap() {
 		blockList = new ArrayList<Block>();
 		

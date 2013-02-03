@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import tang.helper.Console;
+import tang.helper.input.Input;
 
 /**
  * GameContainer holds all the LWJGL code for displaying a window and updating the game loop
@@ -16,6 +17,7 @@ public class GameContainer {
 	private Game game;
 	
 	public GameContainer(Game game) {
+		Input input = new Input();
 		this.game = game;
 
 		try {
@@ -27,10 +29,12 @@ public class GameContainer {
 			Game.exit();
 		}
 		
+		input.init();
 		game.init();
 		Console.info("Game loaded");
 		
 		while(!Display.isCloseRequested()) {
+			input.update();
 			game.update();
 			game.draw();
 			Display.update();

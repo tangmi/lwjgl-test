@@ -7,6 +7,7 @@ import org.lwjgl.input.*;
 
 import tang.helper.Axis;
 import tang.helper.Console;
+import tang.helper.input.Input;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 import tang.testgame.Main;
@@ -48,28 +49,28 @@ public class EntityPlayer extends Entity {
 		float moveSensitivity = 0.3f;
 
 		Vector3 moveVel;
-		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+		if(Input.state("moveForward")) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(moveSensitivity);
 			moveVel.setY(vel.getY());
 			this.vel = moveVel;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+		if(Input.state("moveBackward")) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_BACKWARD).scale(moveSensitivity);
 			moveVel.setY(vel.getY());
 			this.vel = moveVel;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+		if(Input.state("strafeLeft")) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_LEFT).scale(moveSensitivity);
 			moveVel.setY(vel.getY());
 			this.vel = moveVel;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
+		if(Input.state("strafeRight")) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_RIGHT).scale(moveSensitivity);
 			moveVel.setY(vel.getY());
 			this.vel = moveVel;
 		}
 
-		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+		if(Input.pressed("jump")) {
 			if(this.standing) {
 				this.vel.y += 0.6f;
 			}

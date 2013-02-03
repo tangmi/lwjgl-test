@@ -21,6 +21,7 @@ public class Block {
 	float width;
 	public Texture texture;
 	
+	@Deprecated
 	public Block(Vector3 pos) {
 		this.pos = pos;
 		this.width = 1;

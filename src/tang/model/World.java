@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.GL_LIGHT0;
 import static org.lwjgl.opengl.GL11.GL_POSITION;
 import static org.lwjgl.opengl.GL11.glLight;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tang.entities.Entity;
@@ -83,8 +84,18 @@ public class World implements Updatable {
 		this.entities = entities;
 	}
 
-	public List<Entity> getEntityList() {
+	public List<Entity> getEntities() {
 		return this.entities;
+	}
+	
+	public List<Entity> getEntitiesByClass(Class<Entity> c) {
+		List<Entity> classEntities = new ArrayList<Entity>();
+		for(Entity entity : entities) {
+			if(entity.getClass().isAssignableFrom(c)) {
+				classEntities.add(entity);
+			}
+		}
+		return classEntities;
 	}
 	
 	public void setCamera(Camera camera) {

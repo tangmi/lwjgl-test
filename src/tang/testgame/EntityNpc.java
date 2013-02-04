@@ -40,7 +40,6 @@ public class EntityNpc extends Entity {
 	public void resolveCollision(Entity e) {}
 	
 	public void update() {
-		super.update();
 		
 //		this.heading.addYaw(1.0f);
 //		this.pos = this.pos.add(heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(0.1f));

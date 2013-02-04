@@ -30,7 +30,6 @@ public class EntityPlayer extends Entity {
 
 	@Override
 	public void update() {
-		super.update();
 		
 //		glEnable(GL_LIGHT1);
 //		glLight(GL_LIGHT1, GL_DIFFUSE, Main.asFloatBuffer(new float[]{1f, 1f, 1f, 1.0f}));

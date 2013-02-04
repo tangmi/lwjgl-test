@@ -57,7 +57,7 @@ public class World implements Updatable {
 	public void update() {
 
 		for(Entity entity : entities) {
-			entity.update();
+			entity.updateEntity();
 			this.checkEntityCollision(entity);
 		}
 		

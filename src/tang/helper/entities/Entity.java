@@ -48,6 +48,10 @@ public abstract class Entity implements Updatable {
 	public Vector3 getPos() {
 		return this.pos;
 	}
+	
+	public void setPos(Vector3 pos) {
+		this.pos = pos;
+	}
 
 	public Heading getHeading() {
 		return this.heading;
@@ -56,13 +60,21 @@ public abstract class Entity implements Updatable {
 	public void setHeading(Heading h) {
 		this.heading = h;
 	}
+	
+	/**
+	 * Update method that should be called by the world
+	 */
+	public void updateEntity() {
+		//this basically forces this.calculatePosition() to be called (in World.java), and be un-preventable by the client
+		this.calculatePosition();
+		this.update();
+	}
 
 	public abstract void init();
-
-
-	public void update() {
-		this.calculatePosition();
-	}
+	
+	public abstract void update();
+	
+	public abstract void draw();
 
 	private void calculatePosition() {
 		this.posprev = pos;
@@ -78,6 +90,7 @@ public abstract class Entity implements Updatable {
 		
 	}
 
+	//Friction, like most things, is arbitrary
 	private void calculateFriction() {
 		if(this.accel.x == 0) {
 			this.vel.x = this.vel.x - this.friction * (this.pos.x - this.posprev.x)/2;
@@ -88,37 +101,7 @@ public abstract class Entity implements Updatable {
 		if(this.accel.z == 0) {
 			this.vel.z = this.vel.z - this.friction * (this.pos.z - this.posprev.z)/2;
 		}
-		//TODO this is slightly buggy
-//		if(this.accel.x == 0) {
-//			if(this.vel.x - this.friction > 0) {
-//				this.vel.x = this.vel.x - this.friction;
-//			} else if(this.vel.x + this.friction < 0) {
-//				this.vel.x = this.vel.x + this.friction;
-//			} else {
-//				this.vel.x = 0;
-//			}
-//		}
-//		if(this.accel.y == 0) {
-//			if(this.vel.y - this.friction > 0) {
-//				this.vel.y = this.vel.y - this.fric	tion;
-//			} else if(this.vel.y + this.friction < 0) {
-//				this.vel.y = this.vel.y + this.friction;
-//			} else {
-//				this.vel.y = 0;
-//			}
-//		}
-//		if(this.accel.z == 0) {
-//			if(this.vel.z - this.friction > 0) {
-//				this.vel.z = this.vel.z - this.friction;
-//			} else if(this.vel.z + this.friction < 0) {
-//				this.vel.z = this.vel.z + this.friction;
-//			} else {
-//				this.vel.z = 0;
-//			}
-//		}
 	}
-
-	public abstract void draw();
 	
 	public void handleMovementTrace(CollisionResult res) {
 		//resolve collisions based on position and velocity of both things

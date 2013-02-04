@@ -95,6 +95,8 @@ public class GameContainer {
 
 		glDepthFunc(GL_LEQUAL);
 		glEnable(GL_DEPTH_TEST);
+		
+
 	}
 
 	private static void ready2d() {
@@ -108,6 +110,7 @@ public class GameContainer {
 
 		glDisable(GL_CULL_FACE);
 		
-		
+
+
 	}
 }

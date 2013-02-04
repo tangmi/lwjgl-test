@@ -1,4 +1,4 @@
-package tang.entities;
+package tang.testgame;
 
 
 import static org.lwjgl.opengl.GL11.*;
@@ -7,10 +7,10 @@ import org.lwjgl.input.*;
 
 import tang.helper.Axis;
 import tang.helper.Console;
+import tang.helper.entities.Entity;
 import tang.helper.input.Input;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
-import tang.testgame.Main;
 
 public class EntityPlayer extends Entity {
 

@@ -1,4 +1,4 @@
-package tang.model;
+package tang.helper.world;
 
 import static org.lwjgl.opengl.GL11.*;
 

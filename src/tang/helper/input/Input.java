@@ -10,8 +10,8 @@ import org.lwjgl.opengl.Display;
 
 import tang.helper.Console;
 import tang.helper.Updatable;
+import tang.helper.game.Game;
 import tang.helper.struct.Vector2;
-import tang.main.Game;
 
 /**
  * Input handler that abstracts keyboard and mouse input into actions that a client can check against, allowing easy rebinding of keys

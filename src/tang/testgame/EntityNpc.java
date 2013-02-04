@@ -1,4 +1,4 @@
-package tang.entities;
+package tang.testgame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.lwjgl.input.Keyboard;
 
 import tang.helper.Console;
+import tang.helper.entities.Entity;
 import tang.helper.obj.OBJLoader;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;

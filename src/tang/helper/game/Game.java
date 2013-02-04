@@ -1,4 +1,4 @@
-package tang.main;
+package tang.helper.game;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 import tang.helper.Console;
 import tang.helper.WorldLoader;
 import tang.helper.Updatable;
-import tang.model.World;
+import tang.helper.world.World;
 
 public abstract class Game implements Updatable {
 

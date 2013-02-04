@@ -1,4 +1,4 @@
-package tang.model;
+package tang.helper.world;
 
 import tang.helper.struct.Vector3;
 

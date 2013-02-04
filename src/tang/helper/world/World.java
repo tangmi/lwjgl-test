@@ -1,13 +1,12 @@
-package tang.model;
+package tang.helper.world;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tang.entities.Entity;
 import tang.helper.Updatable;
+import tang.helper.entities.Entity;
 import tang.helper.obj.Model;
-import tang.main.Camera;
 import tang.testgame.Main;
 
 /**

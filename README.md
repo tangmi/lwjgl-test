@@ -24,4 +24,6 @@ to set up eclipse, follow [this guide](https://github.com/tangmi/environment-set
 
 lol [@aaasen](https://github.com/aaasen/voxel-party/)
 
-also, this project will likely be renamed to something better than "lwjgl-test"
+also, this project will likely be renamed to something better than "lwjgl-test".
+
+formally, this was "an illegitimate almost MVC game written in openGL"

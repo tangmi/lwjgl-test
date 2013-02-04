@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.BufferUtils;
@@ -49,33 +50,27 @@ public class Main extends Game {
 		glEnable(GL_COLOR_MATERIAL);
 		glColorMaterial(GL_FRONT, GL_DIFFUSE);		
 
-		//		BlockMap map = new BlockMap();
 
-		Game.setLoadedWorld(new File("lolThisDoesntMatterYet"));
+		Game.setLoadedWorld(new File("lolThisDoesntMatterYet.hax"));
 		
 		Input.bind(Keyboard.KEY_A, "strafeLeft");
 		Input.bind(Keyboard.KEY_D, "strafeRight");
 		Input.bind(Keyboard.KEY_W, "moveForward");
 		Input.bind(Keyboard.KEY_S, "moveBackward");
 		Input.bind(Keyboard.KEY_SPACE, "jump");
-
 		
+		Input.bind(Keyboard.KEY_ESCAPE, "quit");
 
-		//this is just for testing
-		texture = null;
-		try {
-			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("assets/dev/tex512.png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Input.grabMouse();	
+		
 	}
 
 	@Override
 	public void update() {
-
-		Game.getLoadedWorld().update();
+		
+		if(Input.state("quit")) {
+			Game.exit();
+		}
 
 	}
 
@@ -83,9 +78,7 @@ public class Main extends Game {
 	public void draw() {
 		glLight(GL_LIGHT0, GL_POSITION, FloatUtils.asFloatBuffer(new float[]{0, 15, 0, 1.0f}));
 
-		Game.getLoadedWorld().draw();
-
-		texture.bind();
+		
 		glBegin(GL_TRIANGLES);
 			glColor3f(1,1,0);
 			glTexCoord2f(0,0);

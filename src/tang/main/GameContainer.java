@@ -35,8 +35,16 @@ public class GameContainer {
 		
 		while(!Display.isCloseRequested()) {
 			input.update();
+			if(Game.getLoadedWorld() != null) {
+				Game.getLoadedWorld().update();
+			}
 			game.update();
+			
+			if(Game.getLoadedWorld() != null) {
+				Game.getLoadedWorld().draw();
+			}
 			game.draw();
+			
 			Display.update();
 			Display.sync(60);
 		}

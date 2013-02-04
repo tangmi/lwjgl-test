@@ -14,24 +14,21 @@ import tang.testgame.Main;
 
 public class EntityPlayer extends Entity {
 
-	float gravity;
-
 	public EntityPlayer(Vector3 pos) {
 		super(pos);
-
-		//this should move into input class
-		Mouse.setCursorPosition(5, 5); //force the mouse to become "grabbable" (inside window)
-		Mouse.setGrabbed(true);
-
-		this.gravity = -0.03f;
-		this.accel.setY(this.gravity);
+	}
+	
+	@Override
+	public void init() {
+		float gravity = -0.03f;
+		this.accel.setY(gravity);
 
 		this.friction = 1.2f;
 		
 		this.size = new Vector3(1,2,1);
-
 	}
 
+	@Override
 	public void update() {
 		super.update();
 		
@@ -78,25 +75,9 @@ public class EntityPlayer extends Entity {
 
 	}
 
-//	boolean standing = false;
-	private void updatePosition() {
-//		if(this.pos.y > 0) {
-//			standing = false;
-//		} else {
-//			this.vel.y = 0;
-//			this.pos.y = 0;
-//			this.standing = true;
-//		}
-	}
-
-	@Override
-	public void init() {
-
-	}
-
 	@Override
 	public void draw() {
-		this.drawBoundingBox();
+//		this.drawBoundingBox();
 //		this.drawAxis();
 	}
 

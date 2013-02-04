@@ -1,8 +1,5 @@
 package tang.model;
 
-import static org.lwjgl.opengl.GL11.GL_LIGHT0;
-import static org.lwjgl.opengl.GL11.GL_POSITION;
-import static org.lwjgl.opengl.GL11.glLight;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,9 @@ public class World implements Updatable {
 		mapCollision = new CollisionMap();
 	}
 	
+	/**
+	 * Automatically called when a world is loaded
+	 */
 	public void init() {
 		
 		//TODO loadEntities() into map
@@ -52,6 +52,9 @@ public class World implements Updatable {
 		return this.mapCollision;
 	}
 	
+	/**
+	 * Automatically called in game loop, if world exists
+	 */
 	public void update() {
 
 		for(Entity entity : entities) {
@@ -59,17 +62,22 @@ public class World implements Updatable {
 			this.checkEntityCollision(entity);
 		}
 		
-		camera.update(); //TODO: this has to go after player.update, i should find a better solution
+		//this has to go after entityCameraIsFollowing.update();
+		camera.update();
 
 	}
 	
 	private void checkEntityCollision(Entity entity) {
 		for(Entity other : entities) {
 			entity.resolveCollision(other);
+			//TODO entity collision resolution
 			//mark collision as checked already?
 		}
 	}
 
+	/**
+	 * Automatically called in game loop, if world exists
+	 */
 	public void draw() {
 		
 		map.draw();

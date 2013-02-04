@@ -33,7 +33,7 @@ public abstract class Entity implements Updatable {
 		this.pos = pos;
 		this.vel = new Vector3();
 		this.accel = new Vector3();
-		this.heading = new Heading();
+		this.heading = new Heading().withDefaults();
 		this.friction = 0.0f;
 		
 		this.posprev = this.pos;
@@ -42,7 +42,7 @@ public abstract class Entity implements Updatable {
 		this.size = new Vector3();
 		
 		this.model = null;
-
+		this.name = this.getClass().getSimpleName();
 	}
 	
 	public Vector3 getPos() {
@@ -172,6 +172,10 @@ public abstract class Entity implements Updatable {
 	public final void drawBoundingBox() {
 		//TODO make this not have to worry about lighting
 		
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+		glDisable(GL_COLOR_MATERIAL);
+		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glLineWidth(1.0f);
 
@@ -207,6 +211,10 @@ public abstract class Entity implements Updatable {
 		glEnd();
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHTING);
 		
 	}
 

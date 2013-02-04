@@ -14,6 +14,16 @@ public class Heading {
 	public static final int DIRECTION_BACKWARD = 5;
 	
 	/**
+	 * Pitch corresponding to looking forward (parallel to the ground)
+	 */
+	public static final float DEFAULT_PITCH = 90.0f;
+	
+	/**
+	 * This field exists so it yaw doesn't get jealous of pitch for having a default value
+	 */
+	public static final float DEFAULT_YAW = 0.0f;
+	
+	/**
 	 * The pitch should be constrained by almost 0 to 180 degrees
 	 */
 	public float pitch;
@@ -30,17 +40,35 @@ public class Heading {
 	 * Create a Heading object with all fields set to 0
 	 */
 	public Heading() {
-		this.pitch = 90.0f;
-		this.yaw = 0.0f;
+		this(0.0f, 0.0f);
 	}
 	
 	/**
 	 * Create a Heading object with a pitch and yaw
 	 */
 	public Heading(float pitch, float yaw) {
-		this();
+		this.set(pitch, yaw);
+	}
+	
+	/**
+	 * Sets the fields to passed values
+	 * @param pitch
+	 * @param yaw
+	 */
+	public void set(float pitch, float yaw) {
 		this.pitch = pitch;
 		this.yaw = yaw;
+	}
+	
+	/**
+	 * Assigns the default values for the heading, meant to be chained onto the constructor, ex:
+	 * <br>
+	 * <code>new Heading().withDefaults()</code>
+	 * @return heading with values set
+	 */
+	public Heading withDefaults() {
+		this.set(DEFAULT_PITCH, DEFAULT_YAW);
+		return this;
 	}
 	
 	/**
@@ -106,6 +134,10 @@ public class Heading {
 	 */
 	public Vector3 getDirectionVector() {
 		return this.calculateUnitVector(this.pitch, this.yaw);
+	}
+	
+	public Vector3 getMovementVector(float pitch, float yaw) {
+		return this.calculateUnitVector(pitch, yaw);
 	}
 	
 	public Vector3 getMovementVector(int d) {

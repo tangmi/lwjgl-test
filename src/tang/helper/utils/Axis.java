@@ -37,11 +37,13 @@ public class Axis {
 			glVertex3f(0.0f, 0.0f, 1.0f);
 		glEnd();
 
+		glLineWidth(1.0f);
 		
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
 		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_DEPTH_TEST);
+
 	}
 	
 	public static void draw(Vector3 pos, Heading h) {

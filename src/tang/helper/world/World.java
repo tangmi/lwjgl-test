@@ -95,7 +95,14 @@ public class World implements Updatable {
 		return this.entities;
 	}
 	
-	public List<Entity> getEntitiesByClass(Class<Entity> c) {
+	/**
+	 * Get a list of entities of a certain type that is a subset of the full entity list. example input:
+	 * <br>
+	 * <code>Game.getLoadedWorld().getEntitiesByClass(EntityPlayer.class);</code>
+	 * @param c desired class of entities returned
+	 * @return list of loaded entities of a certain class
+	 */
+	public List<Entity> getEntitiesByClass(Class<?> c) {
 		List<Entity> classEntities = new ArrayList<Entity>();
 		for(Entity entity : entities) {
 			if(entity.getClass().isAssignableFrom(c)) {

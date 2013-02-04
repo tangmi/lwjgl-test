@@ -14,10 +14,11 @@ import tang.helper.utils.Console;
 
 public class EntityPlayer extends Entity {
 
+	
 	public EntityPlayer(Vector3 pos) {
 		super(pos);
 	}
-	
+
 	@Override
 	public void init() {
 		float gravity = -0.03f;
@@ -44,28 +45,36 @@ public class EntityPlayer extends Entity {
 
 		float moveSensitivity = 0.3f;
 
-		Vector3 moveVel;
-		if(Input.state("moveForward")) {
-			moveVel = heading.getMovementVector(Heading.DIRECTION_FORWARD).scale(moveSensitivity);
-			moveVel.setY(vel.getY());
-			this.vel = moveVel;
-		}
-		if(Input.state("moveBackward")) {
-			moveVel = heading.getMovementVector(Heading.DIRECTION_BACKWARD).scale(moveSensitivity);
-			moveVel.setY(vel.getY());
-			this.vel = moveVel;
-		}
+		
+		Vector3 moveVel = vel;
 		if(Input.state("strafeLeft")) {
-			moveVel = heading.getMovementVector(Heading.DIRECTION_LEFT).scale(moveSensitivity);
-			moveVel.setY(vel.getY());
-			this.vel = moveVel;
+			moveVel = heading.getMovementVector(Heading.DIRECTION_LEFT);
 		}
 		if(Input.state("strafeRight")) {
-			moveVel = heading.getMovementVector(Heading.DIRECTION_RIGHT).scale(moveSensitivity);
-			moveVel.setY(vel.getY());
-			this.vel = moveVel;
+			moveVel = heading.getMovementVector(Heading.DIRECTION_RIGHT);
 		}
-
+		if(Input.state("moveForward")) {
+			if(Input.state("strafeLeft")) {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 45.0f);
+			} else if(Input.state("strafeRight")) {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() + 45.0f);
+			} else {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw());
+			}
+		}
+		if(Input.state("moveBackward")) {
+			if(Input.state("strafeLeft")) {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f + 45.0f);
+			} else if(Input.state("strafeRight")) {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f - 45.0f);
+			} else {
+				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f);
+			}
+		}
+		moveVel = moveVel.scale(moveSensitivity);
+		moveVel.setY(vel.getY()); //maintain y-velocity
+		this.vel = moveVel;
+		
 		if(Input.pressed("jump")) {
 			if(this.standing) {
 				this.vel.y += 0.6f;

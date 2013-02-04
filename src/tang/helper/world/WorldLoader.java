@@ -35,7 +35,6 @@ public class WorldLoader {
 		
 		Camera camera = new Camera();
 		EntityPlayer player = new EntityPlayer(new Vector3(-8, 10, 0));
-		player.setHeading(new Heading(90.0f, 0.0f));
 		camera.setTarget(player);
 		
 		worldEntities.add(player);
@@ -44,6 +43,16 @@ public class WorldLoader {
 		EntityNpc enemy = new EntityNpc(new Vector3(10, 0, 10));
 		worldEntities.add(enemy);
 		Console.debug("Enemy added: " + enemy);
+		
+		EntityNpc enemy2 = new EntityNpc(new Vector3(-10, 0, 10));
+		enemy2.getHeading().setYaw(150.0f);
+		worldEntities.add(enemy2);
+		Console.debug("Enemy added: " + enemy2);
+		
+		
+		EntityNpc enemy3 = new EntityNpc(new Vector3(-15, 5, -10));
+		worldEntities.add(enemy3);
+		Console.debug("Enemy added: " + enemy3);
 		
 		m.setEntityList(worldEntities);
 		m.setCamera(camera);

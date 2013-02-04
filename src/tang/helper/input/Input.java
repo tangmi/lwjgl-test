@@ -18,7 +18,7 @@ import tang.helper.utils.Console;
  * @author michael
  *
  */
-public class Input implements Updatable {
+public class Input {
 	//maybe this class should be a singleton?
 
 	private static Map<Integer, String> bindings = new HashMap<Integer, String>();
@@ -38,14 +38,14 @@ public class Input implements Updatable {
 	private static Map<String, Boolean> releasedMouse = new HashMap<String, Boolean>();
 
 
-	@Override
+	
 	/**
 	 * Initialize the input handler. Doesn't necessarily need to be called, but I'm exceeding expectations
 	 */
-	public void init() {
+	public static void init() {
 		try {
-			this.initMouse();
-			this.initKeyboard();
+			Input.initMouse();
+			Input.initKeyboard();
 		} catch (LWJGLException e) {
 			Console.error("Could not initialize input!");
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class Input implements Updatable {
 		}
 	}
 
-	private void initMouse() throws LWJGLException {
+	private static void initMouse() throws LWJGLException {
 		Mouse.create();
 	}
 
@@ -104,7 +104,7 @@ public class Input implements Updatable {
 	
 	
 
-	private void initKeyboard() throws LWJGLException {
+	private static void initKeyboard() throws LWJGLException {
 		Keyboard.create();
 	}
 
@@ -154,11 +154,11 @@ public class Input implements Updatable {
 		return actions.containsKey(action) && actions.get(action);
 	}
 
-	@Override
+	
 	/**
 	 * Updates the state of the input handler
 	 */
-	public void update() {
+	public static void update() {
 		
 		pressed.clear();
 		released.clear();
@@ -192,11 +192,5 @@ public class Input implements Updatable {
 			}
 		}
 	}
-
-	@Override
-	/**
-	 * Lol, you can't draw the input handler
-	 */
-	public final void draw() {}
 
 }

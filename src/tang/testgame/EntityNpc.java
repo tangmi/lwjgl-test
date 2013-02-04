@@ -20,7 +20,6 @@ public class EntityNpc extends Entity {
 		this.getHeading().setPitch(90.0f);
 		
 		this.size = new Vector3(1, 2.5f, 1);
-		
 	}
 
 	@Override

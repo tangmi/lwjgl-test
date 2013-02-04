@@ -1,24 +1,6 @@
 package tang.helper.obj;
 
-import static org.lwjgl.opengl.GL11.GL_BACK;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glCullFace;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glNormal3f;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex3f;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +10,7 @@ import org.newdawn.slick.Color;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 
-public class Model implements Comparable {
+public class Model implements Comparable<Model> {
 
 	public List<Vector3> vertices;
 	public List<Vector3> normals;
@@ -167,16 +149,11 @@ public class Model implements Comparable {
 	 * Compare two models based on name (filename)
 	 */
 	@Override
-	public int compareTo(Object obj) {
-		if(obj.getClass().isAssignableFrom(this.getClass())) {
-			if(this.name.equals(((Model) obj).name)) {
-				return 0;
-			} else {
-				return 1;
-			}
+	public int compareTo(Model model) {
+		if(this.name.equals(model.name)) {
+			return 0;
 		} else {
-			return -1;
+			return 1;
 		}
-		
 	}
 }

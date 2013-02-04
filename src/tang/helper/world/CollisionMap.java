@@ -1,8 +1,8 @@
 package tang.helper.world;
 
-import tang.helper.Console;
 import tang.helper.obj.Model;
 import tang.helper.struct.Vector3;
+import tang.helper.utils.Console;
 
 public class CollisionMap {
 	

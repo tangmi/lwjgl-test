@@ -1,4 +1,4 @@
-package tang.helper;
+package tang.helper.world;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,8 +13,7 @@ import tang.helper.obj.Model;
 import tang.helper.obj.OBJLoader;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
-import tang.helper.world.Camera;
-import tang.helper.world.World;
+import tang.helper.utils.Console;
 import tang.testgame.EntityNpc;
 import tang.testgame.EntityPlayer;
 

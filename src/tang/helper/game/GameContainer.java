@@ -4,8 +4,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import tang.helper.Console;
 import tang.helper.input.Input;
+import tang.helper.utils.Console;
 
 /**
  * GameContainer holds all the LWJGL code for displaying a window and updating the game loop

@@ -17,15 +17,15 @@ import org.lwjgl.LWJGLException;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import tang.helper.Axis;
-import tang.helper.FloatUtils;
-import tang.helper.WorldLoader;
 import tang.helper.entities.Entity;
 import tang.helper.game.Game;
 import tang.helper.game.GameContainer;
 import tang.helper.input.Input;
+import tang.helper.utils.Axis;
+import tang.helper.utils.FloatUtils;
 import tang.helper.world.BlockMap;
 import tang.helper.world.World;
+import tang.helper.world.WorldLoader;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main extends Game {

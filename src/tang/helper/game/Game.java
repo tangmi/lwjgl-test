@@ -4,10 +4,10 @@ import java.io.File;
 
 import org.lwjgl.opengl.Display;
 
-import tang.helper.Console;
-import tang.helper.WorldLoader;
 import tang.helper.Updatable;
+import tang.helper.utils.Console;
 import tang.helper.world.World;
+import tang.helper.world.WorldLoader;
 
 public abstract class Game implements Updatable {
 

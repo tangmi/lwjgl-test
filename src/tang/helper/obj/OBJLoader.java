@@ -15,9 +15,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import tang.helper.Console;
 import tang.helper.struct.Vector2;
 import tang.helper.struct.Vector3;
+import tang.helper.utils.Console;
 
 
 public class OBJLoader {

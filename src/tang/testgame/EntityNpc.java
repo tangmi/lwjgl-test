@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
-import tang.helper.Console;
 import tang.helper.entities.Entity;
 import tang.helper.obj.OBJLoader;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
+import tang.helper.utils.Console;
 
 public class EntityNpc extends Entity {
 	

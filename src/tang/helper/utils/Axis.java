@@ -1,4 +1,4 @@
-package tang.helper;
+package tang.helper.utils;
 
 import static org.lwjgl.opengl.GL11.*;
 import tang.helper.struct.Heading;

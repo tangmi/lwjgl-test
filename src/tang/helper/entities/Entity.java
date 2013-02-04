@@ -2,13 +2,13 @@ package tang.helper.entities;
 
 import java.util.List;
 
-import tang.helper.Axis;
-import tang.helper.Console;
 import tang.helper.Updatable;
 import tang.helper.game.Game;
 import tang.helper.obj.Model;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
+import tang.helper.utils.Axis;
+import tang.helper.utils.Console;
 import tang.helper.world.CollisionMap;
 import tang.helper.world.CollisionResult;
 

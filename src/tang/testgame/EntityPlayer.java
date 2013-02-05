@@ -32,13 +32,8 @@ public class EntityPlayer extends Entity {
 	@Override
 	public void update() {
 		
-//		glEnable(GL_LIGHT1);
-//		glLight(GL_LIGHT1, GL_DIFFUSE, Main.asFloatBuffer(new float[]{1f, 1f, 1f, 1.0f}));
-//		glLight(GL_LIGHT1, GL_POSITION, Main.asFloatBuffer(new float[]{this.pos.x, this.pos.y + 1, this.pos.z, 1.0f}));
-
 //		this.updatePosition();
 		
-		//TODO: input should be abstracted out into an input class
 		float mouseSensitivity = 1.5f;
 		this.heading.addPitch(-1 * Mouse.getDY() / mouseSensitivity);
 		this.heading.addYaw(Mouse.getDX() / mouseSensitivity);

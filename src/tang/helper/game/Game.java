@@ -74,4 +74,7 @@ public abstract class Game implements Updatable {
 		}
 	}
 	
+	
+	public abstract void draw2d();
+	
 }

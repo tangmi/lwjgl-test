@@ -18,7 +18,6 @@ public class Axis {
 		
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_LIGHTING);
-		glDisable(GL_LIGHT0);
 		glDisable(GL_COLOR_MATERIAL);
 		
 		glLineWidth(2.0f);
@@ -40,7 +39,6 @@ public class Axis {
 		glLineWidth(1.0f);
 		
 		glEnable(GL_COLOR_MATERIAL);
-		glEnable(GL_LIGHT0);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_DEPTH_TEST);
 

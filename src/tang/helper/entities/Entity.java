@@ -173,7 +173,6 @@ public abstract class Entity implements Updatable {
 		//TODO make this not have to worry about lighting
 		
 		glDisable(GL_LIGHTING);
-		glDisable(GL_LIGHT0);
 		glDisable(GL_COLOR_MATERIAL);
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -213,7 +212,6 @@ public abstract class Entity implements Updatable {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		glEnable(GL_COLOR_MATERIAL);
-		glEnable(GL_LIGHT0);
 		glEnable(GL_LIGHTING);
 		
 	}

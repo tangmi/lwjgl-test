@@ -6,6 +6,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
+import org.newdawn.slick.Color;
 
 import tang.helper.input.Input;
 import tang.helper.utils.Console;
@@ -53,27 +54,13 @@ public class GameContainer {
 
 
 			GameContainer.ready2d();
-
-			int width = Display.getDisplayMode().getWidth();
-			int height = Display.getDisplayMode().getHeight();
-			glBegin(GL_LINES);
-				glColor3f(0.5f, 1.0f, 0.5f);
-	
-				int size = 10;
-				glVertex2f(width/2 - size, height/2);
-				glVertex2f(width/2 + size, height/2);
-	
-				glVertex2f(width/2, height/2 - size);
-				glVertex2f(width/2, height/2 + size);
-			glEnd();
+			glDisable(GL_LIGHTING);
+			glDisable(GL_COLOR_MATERIAL);
+			game.draw2d();
+			glEnable(GL_COLOR_MATERIAL);
+			glEnable(GL_LIGHTING);
 			
-			glBegin(GL_QUADS);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(50.0f, 0.0f);
-			glVertex2f(50.0f, 50.0f);
-			glVertex2f(0.0f, 50.0f);
-			glEnd();
-
+			
 			Display.update();
 			Display.sync(60);
 		}
@@ -102,13 +89,14 @@ public class GameContainer {
 	private static void ready2d() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0.0, Display.getDisplayMode().getWidth(), Display.getDisplayMode().getHeight(), 0.0, -1.0, 10.0);
+		glOrtho(0.0f, Display.getDisplayMode().getWidth(), Display.getDisplayMode().getHeight(), 0.0f, -1.0f, 1.0f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		glDisable(GL_CULL_FACE);
+		glDisable(GL_DEPTH_TEST);
 		
 
 

@@ -36,9 +36,26 @@ public class FontDrawer {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		TextureImpl.bindNone();
-		font.drawString(x, y, text, Color.white);
+		
+		String[] lines = text.split("\n");
+		for(int i = 0; i < lines.length; i++) {
+			font.drawString(x, y + font.getLineHeight() * i, lines[i], Color.white);
+		}
 		
 		glDisable(GL_BLEND);
 		glDisable(GL_TEXTURE_2D);
+	}
+
+	public static int getLineHeight() {
+		return font.getHeight();
+	}
+	
+	public static int getHeight(String input) {
+		return font.getHeight(input) * input.split("\n").length;
+	}
+	
+	public static int getWidth(String input) {
+		//TODO make this return the width of the longest line
+		return font.getWidth(input);
 	}
 }

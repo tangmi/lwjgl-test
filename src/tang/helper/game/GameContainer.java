@@ -16,7 +16,7 @@ import tang.helper.utils.Console;
  * @author michael
  *
  */
-public class GameContainer {	
+public class GameContainer {
 	public GameContainer(Game game) {
 
 		try {

@@ -21,21 +21,21 @@ import tang.helper.utils.Console;
 public class Input {
 	//maybe this class should be a singleton?
 
-	private static Map<Integer, String> bindings = new HashMap<Integer, String>();
+	private static Map<Integer, Object> bindings = new HashMap<Integer, Object>();
 
-	private static Map<String, Boolean> actions = new HashMap<String, Boolean>();
+	private static Map<Object, Boolean> actions = new HashMap<Object, Boolean>();
 	
 	//these could be sets? clear them before every update and check if the action exists when returning state
-	private static Map<String, Boolean> pressed = new HashMap<String, Boolean>();
-	private static Map<String, Boolean> released = new HashMap<String, Boolean>();
+	private static Map<Object, Boolean> pressed = new HashMap<Object, Boolean>();
+	private static Map<Object, Boolean> released = new HashMap<Object, Boolean>();
 
 	private static int mouseDX;
 	private static int mouseDY;
-	private static Map<Integer, String> bindingsMouse = new HashMap<Integer, String>();
-	private static Map<String, Boolean> actionsMouse = new HashMap<String, Boolean>();
+	private static Map<Integer, Object> bindingsMouse = new HashMap<Integer, Object>();
+	private static Map<Object, Boolean> actionsMouse = new HashMap<Object, Boolean>();
 
-	private static Map<String, Boolean> pressedMouse = new HashMap<String, Boolean>();
-	private static Map<String, Boolean> releasedMouse = new HashMap<String, Boolean>();
+	private static Map<Object, Boolean> pressedMouse = new HashMap<Object, Boolean>();
+	private static Map<Object, Boolean> releasedMouse = new HashMap<Object, Boolean>();
 
 
 	
@@ -110,10 +110,12 @@ public class Input {
 
 	/**
 	 * Bind a key to an action, so you can check the state of the action, rather than the key
+	 * <br>
+	 * action can be a string, but it is recommended to create a public enum class to hold all actions
 	 * @param key
 	 * @param action
 	 */
-	public static void bind(int key, String action) {
+	public static void bind(int key, Object action) {
 		bindings.put(key, action);
 	}
 
@@ -130,7 +132,7 @@ public class Input {
 	 * @param action
 	 * @return pressed state of the key
 	 */
-	public static boolean pressed(String action) {
+	public static boolean pressed(Object action) {
 		return pressed.containsKey(action) && pressed.get(action);
 	}
 	
@@ -139,7 +141,7 @@ public class Input {
 	 * @param action
 	 * @return pressed state of the key
 	 */
-	public static boolean released(String action) {
+	public static boolean released(Object action) {
 		return released.containsKey(action) && released.get(action);
 	}
 
@@ -148,7 +150,7 @@ public class Input {
 	 * @param action
 	 * @return state of the key
 	 */
-	public static boolean state(String action) {
+	public static boolean state(Object action) {
 		//this implementation sucks probably
 		//TODO spit out an error if an action isn't bound yet
 		return actions.containsKey(action) && actions.get(action);
@@ -164,9 +166,9 @@ public class Input {
 		released.clear();
 		
 		while(Keyboard.next()) {
-			for(Map.Entry<Integer, String> binding : bindings.entrySet()) {
+			for(Map.Entry<Integer, Object> binding : bindings.entrySet()) {
 				int key = binding.getKey();
-				String action = binding.getValue();
+				Object action = binding.getValue();
 				if(Keyboard.getEventKey() == key) {
 					if(Keyboard.getEventKeyState()) {
 						pressed.put(action, true);

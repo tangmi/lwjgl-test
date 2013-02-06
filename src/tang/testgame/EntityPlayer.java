@@ -11,6 +11,7 @@ import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
 import tang.helper.utils.Axis;
 import tang.helper.utils.Console;
+import tang.helper.world.CollisionResult;
 
 public class EntityPlayer extends Entity {
 
@@ -29,6 +30,12 @@ public class EntityPlayer extends Entity {
 		this.size = new Vector3(1,2,1);
 	}
 
+	public void handleMovementTrace(CollisionResult res) {
+		super.handleMovementTrace(res);
+		
+		Main.text = res.getCollisionX() + ", " + res.getCollisionY() + ", " + res.getCollisionZ();
+	}
+	
 	@Override
 	public void update() {
 		
@@ -42,25 +49,25 @@ public class EntityPlayer extends Entity {
 
 		
 		Vector3 moveVel = vel;
-		if(Input.state("strafeLeft")) {
+		if(Input.state(Action.STRAFE_LEFT)) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_LEFT);
 		}
-		if(Input.state("strafeRight")) {
+		if(Input.state(Action.STRAFE_RIGHT)) {
 			moveVel = heading.getMovementVector(Heading.DIRECTION_RIGHT);
 		}
-		if(Input.state("moveForward")) {
-			if(Input.state("strafeLeft")) {
+		if(Input.state(Action.MOVE_FOWARD)) {
+			if(Input.state(Action.STRAFE_LEFT)) {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 45.0f);
-			} else if(Input.state("strafeRight")) {
+			} else if(Input.state(Action.STRAFE_RIGHT)) {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() + 45.0f);
 			} else {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw());
 			}
 		}
-		if(Input.state("moveBackward")) {
-			if(Input.state("strafeLeft")) {
+		if(Input.state(Action.MOVE_BACKWARD)) {
+			if(Input.state(Action.STRAFE_LEFT)) {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f + 45.0f);
-			} else if(Input.state("strafeRight")) {
+			} else if(Input.state(Action.STRAFE_RIGHT)) {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f - 45.0f);
 			} else {
 				moveVel = heading.getMovementVector(Heading.DEFAULT_PITCH, this.heading.getYaw() - 180.0f);
@@ -70,7 +77,7 @@ public class EntityPlayer extends Entity {
 		moveVel.setY(vel.getY()); //maintain y-velocity
 		this.vel = moveVel;
 		
-		if(Input.pressed("jump")) {
+		if(Input.pressed(Action.JUMP)) {
 			if(this.standing) {
 				this.vel.y += 0.6f;
 			}

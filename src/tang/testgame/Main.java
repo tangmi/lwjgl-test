@@ -27,6 +27,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import tang.helper.entities.Entity;
 import tang.helper.game.Game;
 import tang.helper.game.GameContainer;
+import tang.helper.gl.GLShader;
 import tang.helper.input.Input;
 import tang.helper.utils.Axis;
 import tang.helper.utils.FloatUtils;
@@ -43,6 +44,8 @@ public class Main extends Game {
 	}
 	
 	private Texture texture;
+	
+	GLShader tangShader;
 
 	public static TrueTypeFont font;
 	public static String text = "";
@@ -68,16 +71,18 @@ public class Main extends Game {
 
 		Game.setLoadedWorld(new File("lolThisDoesntMatterYet.hax"));
 		
-		Input.bind(Keyboard.KEY_A, "strafeLeft");
-		Input.bind(Keyboard.KEY_D, "strafeRight");
-		Input.bind(Keyboard.KEY_W, "moveForward");
-		Input.bind(Keyboard.KEY_S, "moveBackward");
-		Input.bind(Keyboard.KEY_SPACE, "jump");
+		Input.bind(Keyboard.KEY_A, Action.STRAFE_LEFT);
+		Input.bind(Keyboard.KEY_D, Action.STRAFE_RIGHT);
+		Input.bind(Keyboard.KEY_W, Action.MOVE_FOWARD);
+		Input.bind(Keyboard.KEY_S, Action.MOVE_BACKWARD);
+		Input.bind(Keyboard.KEY_SPACE, Action.JUMP);
 		
-		Input.bind(Keyboard.KEY_ESCAPE, "quit");
-		Input.bind(Keyboard.KEY_F5, "wireframeMode");
+		Input.bind(Keyboard.KEY_ESCAPE, Action.QUIT);
+		Input.bind(Keyboard.KEY_F5, Action.WIREFRAME_MODE);
 
 		Input.grabMouse();
+		
+		tangShader = new GLShader("assets/shaders/tang-concept-shader/shader.vert", "assets/shaders/tang-concept-shader/shader.frag");
 		
 		FontDrawer.loadFont("assets/fonts/SourceCodePro-Semibold.ttf", 16.0f, true);
 		
@@ -89,10 +94,10 @@ public class Main extends Game {
 	@Override
 	public void update() {
 	
-		if(Input.state("quit")) {
+		if(Input.state(Action.QUIT)) {
 			Game.exit();
 		}
-		if(Input.pressed("wireframeMode")) {
+		if(Input.pressed(Action.WIREFRAME_MODE)) {
 			wireframeToggle = !wireframeToggle;
 		}
 		
@@ -126,6 +131,7 @@ public class Main extends Game {
 	@Override
 	public void draw2d() {
 
+//		tangShader.release();
 		
 		int width = Display.getDisplayMode().getWidth();
 		int height = Display.getDisplayMode().getHeight();
@@ -140,7 +146,15 @@ public class Main extends Game {
 			glVertex2f(width/2, height/2 + size);
 		glEnd();
 		
-		FontDrawer.draw(15, 15, Game.getLoadedWorld().getEntitiesByClass(EntityPlayer.class).get(0).getPos().toString());
+//		glBegin(GL_QUADS);
+//			glVertex2f(5f, 5f);
+//		glEnd();
+		
+		FontDrawer.draw(15, 15, Game.getLoadedWorld().getEntitiesByClass(EntityPlayer.class).get(0).getPos().toString() + "\n"
+				+ text);
+		
+//		tangShader.use();
+
 	}
 	
 	@Override

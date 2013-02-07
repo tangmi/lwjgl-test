@@ -11,6 +11,7 @@ import tang.helper.utils.Axis;
 import tang.helper.utils.Console;
 import tang.helper.world.CollisionMap;
 import tang.helper.world.CollisionResult;
+import tang.testgame.Main;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -124,42 +125,93 @@ public abstract class Entity implements Updatable {
 	}
 
 	public void resolveCollision(Entity other) {
-//		if(this.overlapY(posprev, other) && this.overlapZ(posprev, other)) {
-//			Console.debug("X COLLISION");
-//		} else if(this.overlapX(posprev, other) && this.overlapZ(posprev, other)) {
-//			Console.debug("Y COLLISION");
-//		} else if(this.overlapX(posprev, other) && this.overlapY(posprev, other)) {
-//			Console.debug(this + "Z COLLISION");
-//		}
+		//TODO add 'weighs' on certain collision types (FIXED, ACTIVE, etc)
+		if(this.overlapY(posprev, other) && this.overlapZ(posprev, other)) {
+			//x-collision
+			
+			float resolution;
+//			resolution = (other.getPos().getX() - (other.size.x/2)) - (this.getPos().getX());
+			
+			if(this.pos.x < other.pos.x) {
+				resolution = other.pos.x - other.size.x/2 - this.size.x/2;
+			} else if(this.pos.x > other.pos.x) {
+				resolution = other.pos.x + other.size.x/2 + this.size.x/2;
+			} else {
+				resolution = this.pos.x;
+			}
+			
+			Main.text = "x collision";
+
+			
+			CollisionResult res = new CollisionResult();
+			res.setResolution(resolution, this.pos.y, this.pos.z);
+			
+			res.setCollision(this.pos.x != res.getResolution().x, false, false);
+			this.handleMovementTrace(res);
+			
+		} else if(this.overlapX(posprev, other) && this.overlapZ(posprev, other)) {
+			//y-collision
+			
+			this.vel.y = 0.4f;
+			CollisionResult res = new CollisionResult();
+			res.setResolution(this.pos.x, other.pos.y + other.size.y, this.pos.z);
+			
+			res.setCollision(false, false, false);
+			this.handleMovementTrace(res);
+			
+			
+		} else if(this.overlapX(posprev, other) && this.overlapY(posprev, other)) {
+			//z-collision
+			
+			float resolution;
+			
+			if(this.pos.z < other.pos.z) {
+				resolution = other.pos.z - other.size.z/2 - this.size.z/2;
+			} else if(this.pos.z > other.pos.z) {
+				resolution = other.pos.z + other.size.z/2 + this.size.z/2;
+			} else {
+				resolution = this.pos.z;
+			}
+			
+			Main.text = "z collision";
+			
+			CollisionResult res = new CollisionResult();
+			res.setResolution(this.pos.x, this.pos.y, resolution);
+			
+			res.setCollision(false, false, this.pos.x != res.getResolution().x);
+			this.handleMovementTrace(res);
+		}
+		
 	}
 	
 	public boolean touches(Entity other) {
 		return this.touchesAt(this.pos, other);
 	}
 	
-	private boolean touchesAt(Vector3 pos, Entity b) {
+	//should these be private?
+	protected boolean touchesAt(Vector3 pos, Entity b) {
 		boolean notColliding = !this.overlapX(pos, b) || !this.overlapY(pos, b) || !this.overlapZ(pos, b);
 		return !notColliding;
 	}
 	
-	private boolean overlapX(Vector3 pos, Entity other) {
+	protected boolean overlapX(Vector3 pos, Entity other) {
 		boolean notOverlapping =
-				(pos.x + (size.x / 2) < other.pos.getX() - (other.size.getX() / 2)) ||
-				(pos.x - (size.x / 2) > other.pos.getX() + (other.size.getX() / 2));	
+				(pos.x + (size.x / 2) <= other.pos.getX() - (other.size.getX() / 2)) ||
+				(pos.x - (size.x / 2) >= other.pos.getX() + (other.size.getX() / 2));	
 		return !notOverlapping;
 	}
 	
-	private boolean overlapY(Vector3 pos, Entity other) {
+	protected boolean overlapY(Vector3 pos, Entity other) {
 		boolean notOverlapping =
-				(pos.y 			> other.pos.getY() + other.size.getY()) ||
-				(pos.y + size.y < other.pos.getY());
+				(pos.y 			>= other.pos.getY() + other.size.getY()) ||
+				(pos.y + size.y <= other.pos.getY());
 		return !notOverlapping;
 	}
 	
-	private boolean overlapZ(Vector3 pos, Entity other) {
+	protected boolean overlapZ(Vector3 pos, Entity other) {
 		boolean notOverlapping =
-				(pos.z + (size.z / 2) < other.pos.getZ() - (other.size.getZ() / 2)) ||
-				(pos.z - (size.z / 2) > other.pos.getZ() + (other.size.getZ() / 2));
+				(pos.z + (size.z / 2) <= other.pos.getZ() - (other.size.getZ() / 2)) ||
+				(pos.z - (size.z / 2) >= other.pos.getZ() + (other.size.getZ() / 2));
 		return !notOverlapping;
 	}
 	

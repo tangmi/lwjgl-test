@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.*;
 
 import tang.helper.entities.Entity;
+import tang.helper.game.Game;
 import tang.helper.input.Input;
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
@@ -32,13 +33,16 @@ public class EntityPlayer extends Entity {
 
 	public void handleMovementTrace(CollisionResult res) {
 		super.handleMovementTrace(res);
+	}
+	
+	public void resolveCollision(Entity other) {
+		super.resolveCollision(other);
 		
-		Main.text = res.getCollisionX() + ", " + res.getCollisionY() + ", " + res.getCollisionZ();
 	}
 	
 	@Override
 	public void update() {
-		
+				
 //		this.updatePosition();
 		
 		float mouseSensitivity = 1.5f;
@@ -87,7 +91,7 @@ public class EntityPlayer extends Entity {
 
 	@Override
 	public void draw() {
-//		this.drawBoundingBox();
+		this.drawBoundingBox();
 //		this.drawAxis();
 	}
 

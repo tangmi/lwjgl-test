@@ -55,7 +55,7 @@ public class World implements Updatable {
 	 * Automatically called in game loop, if world exists
 	 */
 	public void update() {
-
+		
 		for(Entity entity : entities) {
 			entity.updateEntity();
 			this.checkEntityCollision(entity);
@@ -68,7 +68,11 @@ public class World implements Updatable {
 	
 	private void checkEntityCollision(Entity entity) {
 		for(Entity other : entities) {
-			entity.resolveCollision(other);
+			if(entity.touches(other)) {
+				if(!entity.equals(other)) {
+					entity.resolveCollision(other);
+				}
+			}
 			//TODO entity collision resolution
 			//mark collision as checked already?
 		}

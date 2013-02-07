@@ -126,13 +126,13 @@ public class Main extends Game {
 			glVertex3f(0.0f, 0.0f, 6f);
 		glEnd();			
 
-		Axis.draw();			
+		Axis.draw();
 	}
 	
 	@Override
 	public void draw2d() {
 
-//		tangShader.release();
+		tangShader.release();
 		
 		int width = Display.getDisplayMode().getWidth();
 		int height = Display.getDisplayMode().getHeight();
@@ -147,14 +147,22 @@ public class Main extends Game {
 			glVertex2f(width/2, height/2 + size);
 		glEnd();
 		
-//		glBegin(GL_QUADS);
-//			glVertex2f(5f, 5f);
-//		glEnd();
+		String drawText = Game.getLoadedWorld().getEntitiesByClass(EntityPlayer.class).get(0).getPos().toString() + "\n"
+				+ text;
 		
-		FontDrawer.draw(15, 15, Game.getLoadedWorld().getEntitiesByClass(EntityPlayer.class).get(0).getPos().toString() + "\n"
-				+ text);
+		float textX = 15f;
+		float textY = 15f;
+		//draw a black background box around the text
+		glBegin(GL_QUADS);
+			glColor3f(0f, 0f, 0f);
+			glVertex2f(textX, textY);
+			glVertex2f(FontDrawer.getWidth(drawText) + textX, textY);
+			glVertex2f(FontDrawer.getWidth(drawText) + textX, FontDrawer.getHeight(drawText) + textY);
+			glVertex2f(textX, FontDrawer.getHeight(drawText) + textY);
+		glEnd();
+		FontDrawer.draw(15, 15, drawText);
 		
-//		tangShader.use();
+		tangShader.use();
 
 	}
 	

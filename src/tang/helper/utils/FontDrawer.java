@@ -55,7 +55,11 @@ public class FontDrawer {
 	}
 	
 	public static int getWidth(String input) {
-		//TODO make this return the width of the longest line
-		return font.getWidth(input);
+		String[] lines = input.split("\n");
+		int maxWidth = 0;
+		for(int i = 0; i < lines.length; i++) {
+			maxWidth = Math.max(maxWidth, font.getWidth(lines[i]));
+		}
+		return maxWidth;
 	}
 }

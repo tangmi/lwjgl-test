@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 
 import tang.helper.struct.Heading;
 import tang.helper.struct.Vector3;
+import tang.helper.utils.Console;
 
 public class Model implements Comparable<Model> {
 
@@ -45,11 +46,13 @@ public class Model implements Comparable<Model> {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		
-		
 		for(Face face : this.faces) {
 			if(face.getMaterial() != null) {
+				//TODO make this betterer
 				Color diffuseColor = face.getMaterial().getDiffuseColor();
-				glColor3f(diffuseColor.getRed() / 255.0f, diffuseColor.getGreen() / 255.0f, diffuseColor.getBlue() / 255.0f);
+				if(diffuseColor != null) {
+					glColor3f(diffuseColor.getRed() / 255.0f, diffuseColor.getGreen() / 255.0f, diffuseColor.getBlue() / 255.0f);
+				}
 				
 				if(face.getMaterial().getDiffuseMap() != null) {
 					glEnable(GL_TEXTURE_2D);

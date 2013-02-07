@@ -33,6 +33,11 @@ public class OBJLoader {
 		
 		Material currentMaterial = null;
 		while((line=reader.readLine()) != null) {
+			line = line.trim();
+			while(line.contains("  ")) {
+				line = line.replace("  ", " ");
+			}
+			
 			if(line.startsWith("mtllib ")) {
 				//loads up all the materials used in the file. this should theoretically appear first
 				materials = loadMaterialsFromMtl(new File(f.getParent() + "/" + line.split(" ")[1]));
@@ -136,6 +141,12 @@ public class OBJLoader {
 				
 				//this assumes that materials are separated by an empty line
 				while((line=reader.readLine()) != null && !line.equals("")) {
+					line = line.trim();
+					while(line.contains("  ")) {
+						line = line.replace("  ", " ");
+					}
+					
+					
 					if(line.startsWith("Ka ")) {
 						//ambient color
 						float r = Float.valueOf(line.split(" ")[1]);

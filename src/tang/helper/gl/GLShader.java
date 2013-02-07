@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import org.lwjgl.opengl.Display;
 
+import tang.helper.utils.Console;
+
 
 public class GLShader {
 
@@ -27,7 +29,7 @@ public class GLShader {
                 vertexShaderSource.append(line).append('\n');
             }
         } catch (IOException e) {
-            System.err.println("Vertex shader wasn't loaded properly.");
+            Console.error("Vertex shader wasn't loaded properly.");
             e.printStackTrace();
             Display.destroy();
             System.exit(1);
@@ -48,7 +50,7 @@ public class GLShader {
                 fragmentShaderSource.append(line).append('\n');
             }
         } catch (IOException e) {
-            System.err.println("Fragment shader wasn't loaded properly.");
+        	Console.error("Fragment shader wasn't loaded properly.");
             Display.destroy();
             System.exit(1);
         } finally {
@@ -63,21 +65,18 @@ public class GLShader {
         glShaderSource(vertexShader, vertexShaderSource);
         glCompileShader(vertexShader);
         if (glGetShaderi(vertexShader, GL_COMPILE_STATUS) == GL_FALSE) {
-            System.err.println("Vertex shader wasn't able to be compiled correctly.");
-            System.err.println(glGetShaderInfoLog(vertexShader, 1024));
+        	Console.error("Vertex shader wasn't able to be compiled correctly.\n" + glGetShaderInfoLog(vertexShader, 1024));
         }
         glShaderSource(fragmentShader, fragmentShaderSource);
         glCompileShader(fragmentShader);
         if (glGetShaderi(fragmentShader, GL_COMPILE_STATUS) == GL_FALSE) {
-            System.err.println("Fragment shader wasn't able to be compiled correctly.");
-            System.err.println(glGetShaderInfoLog(fragmentShader, 1024));
+        	Console.error("Fragment shader wasn't able to be compiled correctly.\n" + glGetShaderInfoLog(fragmentShader, 1024));
         }
         glAttachShader(shaderProgram, vertexShader);
         glAttachShader(shaderProgram, fragmentShader);
         glLinkProgram(shaderProgram);
         if (glGetProgrami(shaderProgram, GL_LINK_STATUS) == GL_FALSE) {
-            System.err.println("Shader program wasn't linked correctly.");
-            System.err.println(glGetProgramInfoLog(shaderProgram, 1024));
+        	Console.error("Shader program wasn't linked correctly.\n" + glGetProgramInfoLog(shaderProgram, 1024));
         }
         glValidateProgram(shaderProgram);
         

@@ -6,6 +6,7 @@ public enum Action {
 	STRAFE_LEFT,
 	STRAFE_RIGHT,
 	JUMP,
+	WALK,
 	QUIT,
 	WIREFRAME_MODE
 }

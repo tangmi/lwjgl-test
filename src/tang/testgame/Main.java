@@ -76,6 +76,7 @@ public class Main extends Game {
 		Input.bind(Keyboard.KEY_W, Action.MOVE_FOWARD);
 		Input.bind(Keyboard.KEY_S, Action.MOVE_BACKWARD);
 		Input.bind(Keyboard.KEY_SPACE, Action.JUMP);
+		Input.bind(Keyboard.KEY_LSHIFT, Action.WALK);
 		
 		Input.bind(Keyboard.KEY_ESCAPE, Action.QUIT);
 		Input.bind(Keyboard.KEY_F5, Action.WIREFRAME_MODE);

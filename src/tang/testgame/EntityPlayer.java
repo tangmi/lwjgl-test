@@ -50,7 +50,10 @@ public class EntityPlayer extends Entity {
 		this.heading.addYaw(Mouse.getDX() / mouseSensitivity);
 
 		float moveSensitivity = 0.3f;
-
+		if(Input.state(Action.WALK)) {
+			moveSensitivity *= 0.4f;
+		}
+		
 		
 		Vector3 moveVel = vel;
 		if(Input.state(Action.STRAFE_LEFT)) {

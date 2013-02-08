@@ -27,6 +27,7 @@ public abstract class Entity implements Updatable {
 	
 	public boolean standing; //for games with gravity; could be factored out
 	public String name;
+	private boolean deferredRemove;
 
 	public Entity(Vector3 pos) {
 		this.id = nextId++; //sequentially assign ids
@@ -139,8 +140,6 @@ public abstract class Entity implements Updatable {
 			} else {
 				resolution = this.pos.x;
 			}
-			
-			Main.text = "x collision";
 
 			
 			CollisionResult res = new CollisionResult();
@@ -151,10 +150,20 @@ public abstract class Entity implements Updatable {
 			
 		} else if(this.overlapX(posprev, other) && this.overlapZ(posprev, other)) {
 			//y-collision
-			
-			this.vel.y = 0.4f;
 			CollisionResult res = new CollisionResult();
-			res.setResolution(this.pos.x, other.pos.y + other.size.y, this.pos.z);
+
+			if(this.pos.y > other.pos.y) {
+				this.vel.y = 0.4f;
+				res.setResolution(this.pos.x, other.pos.y + other.size.y, this.pos.z);
+				
+				
+				//it's-a-me, mario
+//				other.destroy();
+			} else {
+				this.vel.y = 0;
+				res.setResolution(this.pos.x, other.pos.y - this.size.y, this.pos.z);
+
+			}
 			
 			res.setCollision(false, false, false);
 			this.handleMovementTrace(res);
@@ -173,7 +182,6 @@ public abstract class Entity implements Updatable {
 				resolution = this.pos.z;
 			}
 			
-			Main.text = "z collision";
 			
 			CollisionResult res = new CollisionResult();
 			res.setResolution(this.pos.x, this.pos.y, resolution);
@@ -274,6 +282,17 @@ public abstract class Entity implements Updatable {
 
 	public int getId() {
 		return id;
+	}
+
+	/**
+	 * Stage an entity to be removed from the world on the next tick
+	 */
+	public void destroy() {
+		deferredRemove = true;
+	}
+	
+	public boolean deferredRemove() {
+		return deferredRemove;
 	}
 
 }

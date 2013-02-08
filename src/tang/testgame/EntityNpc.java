@@ -27,8 +27,8 @@ public class EntityNpc extends Entity {
 		try {
 //			this.model = OBJLoader.loadModel(new File("assets/objects/texturedcube.obj"));
 //			this.model = OBJLoader.loadModel(new File("assets/objects/dogthing.obj"));
-//			this.model = OBJLoader.loadModel(new File("assets/objects/person.obj"));
-			this.model = OBJLoader.loadModel(new File("assets/objects/MICAHEL1111.obj"));
+			this.model = OBJLoader.loadModel(new File("assets/objects/person.obj"));
+//			this.model = OBJLoader.loadModel(new File("assets/objects/MICAHEL1111.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

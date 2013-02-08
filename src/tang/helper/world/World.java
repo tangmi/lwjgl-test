@@ -20,6 +20,7 @@ public class World implements Updatable {
 	private List<Entity> entities;
 	private Camera camera;
 	private String name;
+	private List<Entity> deferredRemoveEntities;
 	
 	public World() {
 		map = null;
@@ -32,6 +33,8 @@ public class World implements Updatable {
 	public void init() {
 		
 		//TODO loadEntities() into map
+		
+		deferredRemoveEntities = new ArrayList<Entity>();
 		
 		for(Entity entity : entities) {
 			entity.init();
@@ -59,7 +62,18 @@ public class World implements Updatable {
 		for(Entity entity : entities) {
 			entity.updateEntity();
 			this.checkEntityCollision(entity);
+			
+			if(entity.deferredRemove()) {
+				deferredRemoveEntities.add(entity);
+			}
 		}
+		
+		//remove any entity we wanted to remove
+		for(Entity entityRemove : deferredRemoveEntities) {
+			entities.remove(entityRemove);
+		}
+		deferredRemoveEntities.clear();
+		
 		
 		//this has to go after entityCameraIsFollowing.update();
 		camera.update();

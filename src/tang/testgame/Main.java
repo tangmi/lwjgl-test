@@ -132,7 +132,7 @@ public class Main extends Game {
 	@Override
 	public void draw2d() {
 
-		tangShader.release();
+//		tangShader.release();
 		
 		int width = Display.getDisplayMode().getWidth();
 		int height = Display.getDisplayMode().getHeight();
@@ -162,7 +162,7 @@ public class Main extends Game {
 		glEnd();
 		FontDrawer.draw(15, 15, drawText);
 		
-		tangShader.use();
+//		tangShader.use();
 
 	}
 	

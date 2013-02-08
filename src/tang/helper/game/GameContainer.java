@@ -87,6 +87,7 @@ public class GameContainer {
 	}
 
 	private static void ready2d() {
+		//Setup for 2d
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0.0f, Display.getDisplayMode().getWidth(), Display.getDisplayMode().getHeight(), 0.0f, -1.0f, 1.0f);

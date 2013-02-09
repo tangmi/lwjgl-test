@@ -288,6 +288,7 @@ public abstract class Entity implements Updatable {
 	 * Stage an entity to be removed from the world on the next tick
 	 */
 	public void destroy() {
+		//TODO free up openGL memory, clear VBOs, etc
 		deferredRemove = true;
 	}
 	

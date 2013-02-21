@@ -30,7 +30,6 @@ public class BlockMap {
 	
 	Texture texture;
 	
-	@Deprecated
 	public BlockMap() {
 		blockList = new ArrayList<Block>();
 		

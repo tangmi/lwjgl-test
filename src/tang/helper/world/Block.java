@@ -11,8 +11,9 @@ import tang.helper.struct.Vector3;
 
 import static org.lwjgl.opengl.GL11.*;
 
+@Deprecated
 /**
- * Depreceated, use Map instead
+ * Deprecated, use Map instead
  * @author michael
  *
  */
@@ -21,7 +22,6 @@ public class Block {
 	float width;
 	public Texture texture;
 	
-	@Deprecated
 	public Block(Vector3 pos) {
 		this.pos = pos;
 		this.width = 1;

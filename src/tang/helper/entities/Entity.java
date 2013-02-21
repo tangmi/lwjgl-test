@@ -15,6 +15,9 @@ import tang.testgame.Main;
 
 import static org.lwjgl.opengl.GL11.*;
 
+//TODO decide which methods should be final
+//TODO create a super entity class that is a parent of both Entity and Trigger (map trigger zone)
+//TODO include fields that are used in the level editor? (display style, onload code, etc?)
 public abstract class Entity implements Updatable {
 	private static int nextId;
 	private int id;
@@ -66,7 +69,7 @@ public abstract class Entity implements Updatable {
 	/**
 	 * Update method that should be called by the world
 	 */
-	public void updateEntity() {
+	public final void updateEntity() {
 		//this basically forces this.calculatePosition() to be called (in World.java), and be un-preventable by the client
 		this.calculatePosition();
 		this.update();

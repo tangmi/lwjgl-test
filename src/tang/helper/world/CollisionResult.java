@@ -38,32 +38,33 @@ public class CollisionResult {
 	public String toString() {
 		return "CollisionResult(resolution: {" + this.resolution + "}; collision: {" + this.collision + "})";
 	}
-	
-}
 
-/**
- * This is a private class for CollisionResult to use, as I don't see any other class needing it.
- * 3d boolean vector for storing collision state in each of the Cartesian directions.
- * @author michael
- *
- */
-class Vector3b {
-	public boolean x, y, z;
-	public Vector3b(boolean x, boolean y, boolean z) {
-		this.set(x, y, z);
+
+	/**
+	 * This is a private class for CollisionResult to use, as I don't see any other class needing it.
+	 * 3d boolean vector for storing collision state in each of the Cartesian directions.
+	 * @author michael
+	 *
+	 */
+	public class Vector3b {
+		public boolean x, y, z;
+		public Vector3b(boolean x, boolean y, boolean z) {
+			this.set(x, y, z);
+		}
+
+		public Vector3b() {
+			this(false, false, false);
+		}
+
+		public void set(boolean x, boolean y, boolean z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		public String toString() {
+			return "Vector3b(x: " + this.x + ", y: " + this.y + ", z: " + this.z + ")";
+		}
 	}
 	
-	public Vector3b() {
-		this(false, false, false);
-	}
-	
-	public void set(boolean x, boolean y, boolean z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-	
-	public String toString() {
-		return "Vector3b(x: " + this.x + ", y: " + this.y + ", z: " + this.z + ")";
-	}
 }

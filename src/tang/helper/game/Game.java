@@ -17,31 +17,13 @@ public abstract class Game implements Updatable {
 	public static World loadedWorld;
 
 	/**
-	 * Defines the width of the game window; will get called once during initialization
-	 * @return width
-	 */
-	public abstract int getDisplayWidth();
-	
-	/**
-	 * Defines the height of the game window; will get called once during initialization
-	 * @return height
-	 */
-	public abstract int getDisplayHeight();
-	
-	/**
-	 * Defines the title of the game window; will get called once during initialization
-	 * @return title
-	 */
-	public abstract String getDisplayTitle();
-	
-	/**
 	 * Retrieves the currently loaded world
 	 * @return world currently loaded world
 	 */
 	public static final World getLoadedWorld() {
 		return Game.loadedWorld;
 	}
-	
+
 	/**
 	 * Loads a world into the game, overriding the currently loaded world
 	 * @param f file to load
@@ -50,14 +32,14 @@ public abstract class Game implements Updatable {
 		Game.loadedWorld = WorldLoader.loadWorld(f);
 		Game.loadedWorld.init();
 	}
-	
+
 	/**
 	 * Closes the OpenGL window and exits the game
 	 */
 	public static final void exit() {
 		Game.exit(false);
 	}
-	
+
 	/**
 	 * Closes the game with an error, if parameter is true
 	 * @param error should exit unpeacefully?
@@ -73,8 +55,10 @@ public abstract class Game implements Updatable {
 			System.exit(1);
 		}
 	}
-	
-	
+
+	/**
+	 * Method that is called when the display is set in a 2D context
+	 */
 	public abstract void draw2d();
-	
+
 }

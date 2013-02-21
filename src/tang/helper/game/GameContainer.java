@@ -3,8 +3,10 @@ package tang.helper.game;
 import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.Color;
 
@@ -17,17 +19,88 @@ import tang.helper.utils.Console;
  *
  */
 public class GameContainer {
+	private static final int DEFAULT_DISPLAY_WIDTH = 640;
+	private static final int DEFAULT_DISPLAY_HEIGHT = 480;
+	private static final String DEFAULT_DISPLAY_TITLE = "game";
+
+	private int displayWidth, displayHeight;
+	private String displayTitle;
+	private Game game;
+
 	public GameContainer(Game game) {
 
+		this.game = game;
+		this.displayWidth = GameContainer.DEFAULT_DISPLAY_WIDTH;
+		this.displayHeight = GameContainer.DEFAULT_DISPLAY_HEIGHT;
+		this.displayTitle = GameContainer.DEFAULT_DISPLAY_TITLE;
+
+	}
+
+	/**
+	 * Chainable version of setDisplayWidth()
+	 * @param width Width of the display
+	 * @return pointer to itself, so the method can be chained
+	 */
+	public GameContainer withDisplayWidth(int width) {
+		this.setDisplayWidth(width);
+		Console.debug("Set display width: " + this.displayWidth);
+		return this;
+	}
+
+	/**
+	 * Chainable version of setDisplayHeight()
+	 * @param height Height of the display
+	 * @return pointer to itself, so the method can be chained
+	 */
+	public GameContainer withDisplayHeight(int height) {
+		this.setDisplayHeight(height);
+		Console.debug("Set display height: " + this.displayHeight);
+		return this;
+	}
+
+	/**
+	 * Chainable version of setDisplayTitle()
+	 * @param title Title of the display
+	 * @return pointer to itself, so the method can be chained
+	 */
+	public GameContainer withDisplayTitle(String title) {
+		this.setDisplayTitle(title);
+		Console.debug("Set display title: " + this.displayTitle);
+		return this;
+	}
+
+	//TODO java docs
+	public void setDisplayWidth(int width) {
+		this.displayWidth = width;
+	}
+	public void setDisplayHeight(int height) {
+		this.displayHeight = height;
+	}
+	public void setDisplayTitle(String title) {
+		this.displayTitle = title;
+	}
+
+
+	public GameContainer start() {
+
+		//set the GL version to 3.2
+//		PixelFormat pixelFormat = new PixelFormat();
+//		ContextAttribs contextAtrributes = new ContextAttribs(3, 2)
+//				.withForwardCompatible(true)
+//				.withProfileCore(true);
+
+		//Try and create the GL context
 		try {
-			Display.setDisplayMode(new DisplayMode(game.getDisplayWidth(), game.getDisplayHeight()));
-			Display.setTitle(game.getDisplayTitle());
+			Display.setDisplayMode(new DisplayMode(displayWidth, displayHeight));
+			Display.setTitle(displayTitle);
 			Display.create();
+//			Display.create(pixelFormat, contextAtrributes);
 		} catch (LWJGLException e) {
 			Console.error("Display could not be initialized");
 			e.printStackTrace();
 			Game.exit(true);
 		}
+
 
 		//initialize the viewport
 		glViewport(0, 0, Display.getDisplayMode().getWidth(), Display.getDisplayMode().getHeight());
@@ -59,8 +132,8 @@ public class GameContainer {
 			game.draw2d();
 			glEnable(GL_COLOR_MATERIAL);
 			glEnable(GL_LIGHTING);
-			
-			
+
+
 			Display.update();
 			Display.sync(60);
 		}
@@ -68,7 +141,10 @@ public class GameContainer {
 		//quit the game if outside the loop
 		Game.exit();
 
+		return this;
 	}
+
+
 
 	private static void ready3d() {
 		//Setup for 3d
@@ -102,4 +178,5 @@ public class GameContainer {
 
 
 	}
+
 }

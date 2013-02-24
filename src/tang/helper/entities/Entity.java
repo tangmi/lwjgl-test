@@ -225,58 +225,18 @@ public abstract class Entity implements Updatable {
 				(pos.z - (size.z / 2) >= other.pos.getZ() + (other.size.getZ() / 2));
 		return !notOverlapping;
 	}
-	
-	
-	
+
+
+
 	public final void drawAxis() {
 		Axis.draw(this.pos, this.heading);
 	}
-	
+
 	public final void drawBoundingBox() {
 		//TODO make this not have to worry about lighting
-		
-		glDisable(GL_LIGHTING);
-		glDisable(GL_COLOR_MATERIAL);
-		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glLineWidth(1.0f);
 
-		glBegin(GL_QUADS);
-			glColor3f(1f, 1f, 1f);
-			
-			//-z
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y + this.size.y, this.pos.z - (this.size.z / 2));
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y + this.size.y, this.pos.z - (this.size.z / 2));
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y, this.pos.z - (this.size.z / 2));
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y, this.pos.z - (this.size.z / 2));
-			
-			//+z
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y, this.pos.z + (this.size.z / 2));			
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y, this.pos.z + (this.size.z / 2));
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y + this.size.y, this.pos.z + (this.size.z / 2));
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y + this.size.y, this.pos.z + (this.size.z / 2));
-			
-			//-x
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y, this.pos.z - (this.size.z / 2));			
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y, this.pos.z + (this.size.z / 2));			
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y + this.size.y, this.pos.z + (this.size.z / 2));			
-			glVertex3f(this.pos.x - (this.size.x / 2), this.pos.y + this.size.y, this.pos.z - (this.size.z / 2));			
-			
-			//+x
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y + this.size.y, this.pos.z - (this.size.z / 2));			
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y + this.size.y, this.pos.z + (this.size.z / 2));			
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y, this.pos.z + (this.size.z / 2));			
-			glVertex3f(this.pos.x + (this.size.x / 2), this.pos.y, this.pos.z - (this.size.z / 2));			
-			
-			//+ and - y are automagically set
-			
-		glEnd();
-		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		Console.warn("entity should be migrated to have an AABB box");
 
-		glEnable(GL_COLOR_MATERIAL);
-		glEnable(GL_LIGHTING);
-		
 	}
 
 	public String toString() {

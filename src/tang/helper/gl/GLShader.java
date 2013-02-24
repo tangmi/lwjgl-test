@@ -11,7 +11,7 @@ import org.lwjgl.opengl.Display;
 
 import tang.helper.utils.Console;
 
-
+//TODO your shaders are an abomination, michael. fix them.
 public class GLShader {
 
 	int shaderProgram = 0;
